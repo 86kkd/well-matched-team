@@ -4,3 +4,7 @@ visionUtils/__pycache__
 visionUtils/LICENSE
 visionUtils/utils/__pycache__
 runs/
+/.idea/
+/Demo1-Server/.mvn/
+/Demo1-Server/src/test/
+
