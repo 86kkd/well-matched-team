@@ -200,10 +200,11 @@ def letterbox(img, new_shape=(640, 640), color=(114, 114, 114), auto=True, scale
 if __name__=='__main__':
     model_path = 'visionUtils/data/onnx/yolop-384-640.onnx'
     image_path = '/home/linda/Documents/project/softWareCup/YOLOPv2-main/data/example.jpg'
-    model = vinoModel(model_path)
+    # model = detectModel(model_path) # 没有推理加速但是精度更高的模型
+    model = vinoModel(model_path)  # 传入模型路径，初始化模型
     from PIL import Image
     img_pil = Image.open(image_path)
     img_np = np.array(img_pil)
-    img0 = model.detect(img_np)
+    img0 = model.detect(img_np)  # 调用模型，得到检测结果
     img_pil = Image.fromarray(np.uint8(img0))
     img_pil.show()
