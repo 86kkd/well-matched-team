@@ -7,7 +7,7 @@ import torchvision.transforms as transforms
 from utils.utils import select_device,LoadImages
 # Conclude setting / general reprocessing / plots / metrices / datasets
 from utils.utils import \
-    time_synchronized,select_device,normalize_imge, \
+    time_synchronized,select_device,normalize_imge, non_max_suppression_without_ancher,\
     scale_coords,non_max_suppression,split_for_trace_model,\
     driving_area_mask,lane_line_mask,plot_one_box,show_seg_result,\
     AverageMeter,\
@@ -72,7 +72,7 @@ class detectModel():
         
         # Apply NMS
         t3 = time_synchronized()
-        pred = non_max_suppression(pred, conf_thres = 0.5, iou_thres = 0.5, classes=None, agnostic=False)
+        pred = non_max_suppression_without_ancher(pred, conf_thres = 0.5, iou_thres = 0.5, classes=None, agnostic=False)
         t4 = time_synchronized()
         
         da_seg_mask = driving_area_mask(seg)
@@ -134,17 +134,23 @@ class vinoModel():
         preds = self.compiled_model(img)
         t2 = time_synchronized()
         
-        # Apply NMS
-        t3 = time_synchronized()
-        # pred = non_max_suppression(pred, conf_thres = 0.5, iou_thres = 0.5, classes=None, agnostic=False)
-        t4 = time_synchronized()
-        
-        det_out = preds[self.det_out_ir]  # det_out
+        det_out = torch.from_numpy(preds[self.det_out_ir])  # det_out
         seg_out = torch.from_numpy(preds[self.seg_out_ir])  # drive_area_seg
         lan_out = torch.from_numpy(preds[self.lan_out_ir])  # lane_line_seg
         
+         # Apply NMS
+        t3 = time_synchronized()
+        det_pred = non_max_suppression(det_out, conf_thres = 0.5, iou_thres = 0.5, classes=None, agnostic=False)
+        t4 = time_synchronized()
+        det=det_pred[0]
+        if len(det):
+            det[:,:4] = scale_coords(img.shape[2:],det[:,:4],img0.shape).round()
+            for *xyxy,conf,cls in reversed(det):
+                label_det_pred = f'{conf:.2f}'
+                plot_one_box(xyxy, img0 , label=label_det_pred, color=[0,255,0], line_thickness=2)
+        
         da_seg_mask = driving_area_mask(seg_out)
-        ll_seg_mask = lane_line_mask(lan_out)
+        ll_seg_mask = lane_line_mask(lan_out[:,1].unsqueeze(0))
         show_seg_result(img0, (da_seg_mask,ll_seg_mask), is_demo=True)
         
         inf_time.update(t2-t1,img.shape[0])
