@@ -202,7 +202,7 @@ def show_seg_result(img, result, palette=None,is_demo=False):
         color_area = np.zeros((result[0].shape[0], result[0].shape[1], 3), dtype=np.uint8)
         
         color_area[result[0] == 1] = [0, 255, 0]
-        color_area[result[1] ==1] = [255, 0, 0]
+        color_area[result[1][1] == 1] = [255, 0, 0]
         color_seg = color_area
 
     # convert to BGR
@@ -519,3 +519,19 @@ def lane_line_mask(ll = None):
     ll_seg_mask = torch.round(ll_seg_mask).squeeze(1)
     ll_seg_mask = ll_seg_mask.int().squeeze().cpu().numpy()
     return ll_seg_mask
+
+def normalize_imge(img):
+    """将输入图片归一化后输出
+
+    Args:
+        img (any): 输入图片
+
+    Returns:
+        any: 归一化的图片
+    """
+    img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
+    img = np.ascontiguousarray(img)
+    img = torch.from_numpy(img)
+    img = img.float()  # uint8 to fp16/32
+    img /= 255.0  # 0 - 255 to 0.0 - 1.0
+    return img
