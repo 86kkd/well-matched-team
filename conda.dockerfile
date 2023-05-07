@@ -8,17 +8,16 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
+    libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 libfontconfig1 \
     cmake \
-    git \
-    
+    git \ 
     && rm -rf /var/lib/apt/lists/*
-RUN apt-get install -y libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 libfontconfig1
-# 安装python依赖
-RUN conda install -y  pytorch torchvision  pytorch-cuda=11.8 \
-    opencv pandas pillow matplotlib  -c conda-forge -c pytorch -c nvidia
-# RUN which pip
-RUN pip install openvino
 
+# 安装python依赖
+RUN conda install -y  pytorch torchvision  pytorch-cuda=11.8 -c pytorch -c nvidia
+RUN pip install openvino opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+RUN conda clean --all && \
+    rm -rf /root/.cache/pip/*
 ## 先看看用python的包可不可以
 # # 安装OpenVINO
 # RUN wget https://apt.repos.intel.com/openvino/2021/GPG-PUB-KEY-INTEL-OPENVINO-2021 && \
