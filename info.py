@@ -11,7 +11,7 @@ detector = vinoModel(model_path)
 # 读图片
 from PIL import Image
 import numpy as np
-image_path = '/home/linda/Documents/project/softWareCup/YOLOPv2-main/data/example.jpg'
+image_path = 'example.jpg'
 img_pil = Image.open(image_path)
 img = np.array(img_pil)
 

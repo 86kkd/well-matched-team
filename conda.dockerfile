@@ -10,8 +10,9 @@ RUN apt-get update && \
     build-essential \
     cmake \
     git \
+    
     && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get install -y libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 libfontconfig1
 # 安装python依赖
 RUN conda install -y  pytorch torchvision  pytorch-cuda=11.8 \
     opencv pandas pillow matplotlib  -c conda-forge -c pytorch -c nvidia
