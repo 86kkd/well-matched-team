@@ -2,7 +2,7 @@
 FROM continuumio/anaconda3:latest
 
 # 设置工作目录
-WORKDIR /app
+WORKDIR /well-matched
 
 # 更新系统并安装依赖
 RUN apt-get update && \
