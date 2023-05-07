@@ -24,15 +24,16 @@ class detectModel():
             - device (str, optional): the device to select cpu/cuda.... Defaults to '0'(for cuda).
         """
         # Load model
-        self.device = device
         self.model  = torch.jit.load(model_path)
-        device = select_device(device)
-        half = device.type != 'cuda'  # half precision only supported on CUDA
-        self.model = self.model.to(device)
+        self.device = select_device(device)
+        half = self.device.type == 'cuda'  # half precision only supported on CUDA
+        self.model = self.model.to(self.device)
 
         if half:
             self.model.half()  # to FP16  
         self.model.eval()
+    def __call__(self,img):
+        return self.generate_detection(img)
 
     def generate_detection(self, img):
         """read video and draw traffic object detection, drivable road area segmenta-
@@ -106,6 +107,9 @@ class vinoModel():
         self.det_out_ir = self.compiled_model.output("det_out")
         self.seg_out_ir = self.compiled_model.output("drive_area_seg")
         self.lan_out_ir = self.compiled_model.output("lane_line_seg")
+    def __call__(self,img):
+        return self.detect(img)    
+    
     def detect(self,image):
         """返回模型的目标检测，和语义分割的结果，目前是一个图片
 

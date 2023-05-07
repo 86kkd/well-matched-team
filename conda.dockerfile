@@ -13,9 +13,9 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装python依赖
-RUN conda install -y  pytorch torchvision  pytorch-cuda=11.8 -c pytorch -c nvidia\
-    opencv pandas pillow matplotlib  -c conda-forge \
-RUN which pip
+RUN conda install -y  pytorch torchvision  pytorch-cuda=11.8 \
+    opencv pandas pillow matplotlib  -c conda-forge -c pytorch -c nvidia
+# RUN which pip
 RUN pip install openvino
 
 ## 先看看用python的包可不可以
@@ -57,15 +57,15 @@ RUN pip install openvino
 # ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
 # 用于存放模型和数据的目录
-RUN mkdir /well-matched/data
-RUN mkdir /well-matched/models
+RUN mkdir -p /well-matched/data
+RUN mkdir -p /well-matched/models
 
 # 复制代码到工作目录
 COPY . /well-matched
 
-# 安装Python依赖库
-RUN pip install --no-cache-dir -r requirements.txt
+# # 安装Python依赖库
+# RUN pip install --no-cache-dir -r requirements.txt
 
 # 设置默认命令
-CMD ["python", "your_main_script.py"]
+# CMD ["python", "your_main_script.py"]
 
