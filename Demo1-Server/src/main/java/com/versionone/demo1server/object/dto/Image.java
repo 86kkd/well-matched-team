@@ -1,16 +1,13 @@
 package com.versionone.demo1server.object.dto;
 
-import com.versionone.demo1server.threads.ImageCreateThread;
-
 import java.awt.image.BufferedImage;
 
+/**
+ * 图片类
+ */
 public class Image {
 
-    public static BufferedImage nowImage;
+    public static BufferedImage nowImage;  //缓存图片：存储在内存中的图片
 
-    static {
-        //开启一个图片创建线程
-        Thread imageThread = new ImageCreateThread();
-        imageThread.start();
-    }
+
 }

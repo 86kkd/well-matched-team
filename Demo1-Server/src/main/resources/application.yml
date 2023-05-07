@@ -15,3 +15,10 @@ spring:
         max-idle: 10
         min-idle: 1
         time-between-eviction-runs: 10s
+
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      enabled: true
+      max-request-size: -1
+      resolve-lazily: true
