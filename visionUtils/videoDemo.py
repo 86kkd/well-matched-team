@@ -24,15 +24,16 @@ class detectModel():
             - device (str, optional): the device to select cpu/cuda.... Defaults to '0'(for cuda).
         """
         # Load model
-        self.device = device
         self.model  = torch.jit.load(model_path)
-        device = select_device(device)
-        half = device.type != 'cuda'  # half precision only supported on CUDA
-        self.model = self.model.to(device)
+        self.device = select_device(device)
+        half = self.device.type == 'cuda'  # half precision only supported on CUDA
+        self.model = self.model.to(self.device)
 
         if half:
             self.model.half()  # to FP16  
         self.model.eval()
+    def __call__(self,img):
+        return self.generate_detection(img)
 
     def generate_detection(self, img):
         """read video and draw traffic object detection, drivable road area segmenta-
@@ -106,6 +107,9 @@ class vinoModel():
         self.det_out_ir = self.compiled_model.output("det_out")
         self.seg_out_ir = self.compiled_model.output("drive_area_seg")
         self.lan_out_ir = self.compiled_model.output("lane_line_seg")
+    def __call__(self,img):
+        return self.detect(img)    
+    
     def detect(self,image):
         """返回模型的目标检测，和语义分割的结果，目前是一个图片
 
@@ -200,10 +204,11 @@ def letterbox(img, new_shape=(640, 640), color=(114, 114, 114), auto=True, scale
 if __name__=='__main__':
     model_path = 'visionUtils/data/onnx/yolop-384-640.onnx'
     image_path = '/home/linda/Documents/project/softWareCup/YOLOPv2-main/data/example.jpg'
-    model = vinoModel(model_path)
+    # model = detectModel(model_path) # 没有推理加速但是精度更高的模型
+    model = vinoModel(model_path)  # 传入模型路径，初始化模型
     from PIL import Image
     img_pil = Image.open(image_path)
     img_np = np.array(img_pil)
-    img0 = model.detect(img_np)
+    img0 = model.detect(img_np)  # 调用模型，得到检测结果
     img_pil = Image.fromarray(np.uint8(img0))
     img_pil.show()
