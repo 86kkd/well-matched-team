@@ -14,8 +14,7 @@ public interface ImageService {
 
     /**
      * 获取随机图片业务逻辑
-     * @param response 响应对象
-     * @throws IOException 抛出IO异常
      */
-     void getRandomImage(HttpServletResponse response) throws IOException ;
+     void getNewImage(HttpServletResponse response) throws IOException;
+
 }

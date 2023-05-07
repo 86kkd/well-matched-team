@@ -1,6 +1,7 @@
 package com.versionone.demo1server.threads;
 
 import com.versionone.demo1server.object.dto.Image;
+import com.versionone.demo1server.utils.CommandUtil;
 import com.versionone.demo1server.utils.GetRandomObjectUtil;
 
 /**
@@ -15,10 +16,10 @@ public class ImageCreateThread extends Thread{
     public void run() {
         while (true){  //死循环
 
-            Image.nowImage = GetRandomObjectUtil.image();
+            Image.nowImage = CommandUtil.getImage();
 
             try {
-                Thread.sleep(100); //间隔一秒
+                Thread.sleep(1000); //间隔一秒
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

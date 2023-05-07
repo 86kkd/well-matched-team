@@ -3,6 +3,7 @@ package com.versionone.demo1server.controller;
 import com.versionone.demo1server.service.ImageService;
 import com.versionone.demo1server.threads.ImageCreateThread;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +24,15 @@ public class ImageController {
     /**
      * 获取随机图片接口
      */
-    @RequestMapping(value = "/getLatestImage-test" , method = RequestMethod.GET)
+    @RequestMapping(value = "/getLatestImage-test" , method = RequestMethod.GET ,produces = MediaType.IMAGE_PNG_VALUE)
     public void imageDown(HttpServletResponse response){
 
         try {
-            imageService.getRandomImage(response);
+            imageService.getNewImage(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 
        /* //创建HttpHeaders对象，设置响应头信息
