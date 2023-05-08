@@ -1,6 +1,8 @@
 from visionUtils.videoDemo import detectModel
 from visionUtils.videoDemo import vinoModel
 import base64
+import sys
+
 from PIL import Image, ImageFile
 import numpy as np
 from io import BytesIO
@@ -24,6 +26,7 @@ def encoder(image):
 
     return base64_image_data
     
+
 ## 用openvino加速
 model_path = 'visionUtils/data/onnx/yolop-384-640.onnx'
 detector = vinoModel(model_path)  
@@ -32,12 +35,17 @@ detector = vinoModel(model_path)
 # model_path='visionUtils/data/weights/yolopv2.pt'
 # detector = detectModel(model_path)
 
+
 # base64转图片
-image_data = None
+image_data = sys.argv[1]
 img = decoder(image_data)
+
 
 # 用模型处理图片
 det_img = detector(img)  # return detect result 
 
 # 图片转base64
 base64_img = encoder(det_img)
+
+
+
