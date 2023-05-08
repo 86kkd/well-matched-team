@@ -13,8 +13,8 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装python依赖
-RUN pip install --no-cache-dir  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-RUN pip install --no-cache-dir  openvino opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+RUN pip install openvino opencv-python -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
 RUN rm -rf /root/.cache/pip/*
 
 # 用于存放模型和数据的目录
