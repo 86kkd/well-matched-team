@@ -1,7 +1,6 @@
 package com.versionone.demo1server.controller;
 
 import com.versionone.demo1server.service.ImageService;
-import com.versionone.demo1server.threads.ImageCreateThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -48,9 +47,5 @@ public class ImageController {
 
     }
 
-    static {
-        //开启一个图片创建线程
-        Thread imageThread = new ImageCreateThread();
-        imageThread.start();
-    }
+
 }

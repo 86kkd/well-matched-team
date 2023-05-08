@@ -1,9 +1,15 @@
 package com.versionone.demo1server.utils;
 
+import com.versionone.demo1server.object.dto.File;
+
+import java.io.*;
+import java.net.Socket;
+
 public class CommandUtil {
 
     public static byte[] getImage(){
-        StringBuilder stringBuilder = new StringBuilder();
+
+/*        StringBuilder stringBuilder = new StringBuilder();
 stringBuilder.append("iVBORw0KGgoAAAANSUhEUgAAAooAAANvCAYAAAEtjcufAAAAAX");
 stringBuilder.append("NSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMA");
 stringBuilder.append("AA7DAcdvqGQAANifSURBVHhe7N15tGxVdS/+rWLDBfsGNOpPY0");
@@ -1485,9 +1491,37 @@ stringBuilder.append("cvWn0AAABL6l4U9WtEeqypORHV9Holb+tG5tkZrZpIzUf9vd5K");
 stringBuilder.append("+r1aiUU5L5612/0AAGBv6F4Ue2vvQpDJRWtNz+mxPfbZ06qVtR");
 stringBuilder.append("eP6BrdI7EeXat7tSjX6gEAAJgivCgCAABgf1v9+te/Lt84LhfF");
 stringBuilder.append("U24RAAAA9p/Ni+KvfvWN8iEuigAAAFBWb3v4F5sXxWNcFAEAAL");
-stringBuilder.append("DlYPl/X72tPrvRUusAAAAASUVORK5CYII=");
-        
-        return Base64Util.getImgBase64ToImgFile(stringBuilder.toString());
+stringBuilder.append("DlYPl/X72tPrvRUusAAAAASUVORK5CYII=");*/
+        String host = "127.0.0.1";  // Python服务器的地址
+        int port = 8888;            // Python服务器的端口号
+
+        try {
+            // 连接到Python服务器
+            Socket socket = new Socket(host, port);
+            System.out.println("Connected to Python server");
+
+            // 发送数据给Python服务器
+            OutputStream outputStream = socket.getOutputStream();
+            String message = Base64Util.getImgFileToBase642(File.pendingProcessingImg);
+            outputStream.write(message.getBytes());
+
+            // 接收Python服务器返回的数据
+            InputStream inputStream = socket.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            System.out.println("1");
+            String response = reader.readLine();
+            System.out.println("2");
+            System.out.println("Received from Python server: " + response);
+
+            // 关闭套接字
+            socket.close();
+            return Base64Util.getImgBase64ToImgFile(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Base64Util.getImgBase64ToImgFile(null);
+        }
+
+
     }
 
 }

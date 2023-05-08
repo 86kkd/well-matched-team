@@ -32,4 +32,9 @@ public class FileServiceImpl implements FileService {
         outputStream.close();
         return true;
     }
+
+    @Override
+    public void saveImageTo_RAM(MultipartFile png) throws IOException {
+        File.pendingProcessingImg = png.getBytes();
+    }
 }

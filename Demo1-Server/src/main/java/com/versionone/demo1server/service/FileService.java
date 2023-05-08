@@ -11,4 +11,5 @@ public interface FileService {
 
     boolean outputVideo(HttpServletResponse response) throws IOException;
 
+    void saveImageTo_RAM(MultipartFile png) throws IOException;
 }

@@ -2,12 +2,11 @@ package com.versionone.demo1server.threads;
 
 import com.versionone.demo1server.object.dto.Image;
 import com.versionone.demo1server.utils.CommandUtil;
-import com.versionone.demo1server.utils.GetRandomObjectUtil;
 
 /**
  * 图片创建线程，不断创建新的图片
  */
-public class ImageCreateThread extends Thread{
+public class ImageCreateThread extends java.lang.Thread{
 
     /**
      * 线程执行逻辑
@@ -19,7 +18,7 @@ public class ImageCreateThread extends Thread{
             Image.nowImage = CommandUtil.getImage();
 
             try {
-                Thread.sleep(1000); //间隔一秒
+                java.lang.Thread.sleep(1000); //间隔一秒
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

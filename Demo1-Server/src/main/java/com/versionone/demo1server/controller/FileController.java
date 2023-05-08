@@ -1,6 +1,7 @@
 package com.versionone.demo1server.controller;
 
 import com.versionone.demo1server.service.FileService;
+import com.versionone.demo1server.threads.Thread;
 import com.versionone.demo1server.utils.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,23 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+
+
+    @RequestMapping(value = "/uploadPng" , method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<String> pngUpload(@RequestPart("png")MultipartFile png){
+        if (png.isEmpty()) {
+            return CommonResult.failed("上传文件为空");
+        }
+        try {
+            fileService.saveImageTo_RAM(png);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return CommonResult.failed("文件上传失败");
+        }
+        Thread.start();
+        return CommonResult.success("文件上传成功");
+    }
 
     /**
      * 上传视频接口
