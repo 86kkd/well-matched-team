@@ -4,11 +4,7 @@ import com.versionone.demo1server.object.dto.File;
 import com.versionone.demo1server.service.FileService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -19,22 +15,23 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public boolean outputVideo(HttpServletResponse response) throws IOException {
-        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(File.nowVideoFilename, "UTF-8"));
+    public byte[] outputVideo(){
+/*//        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(File.nowVideoFilename, "UTF-8"));
         response.setContentType("application/octet-stream");
-
+        MediaType.APPLICATION_OCTET_STREAM
         // 告知浏览器文件的大小
-        response.addHeader("Content-Length", "" + File.nowVideoFile.length);
+//        response.addHeader("Content-Length", "" + File.nowVideoFile.length);
         ServletOutputStream outputStream = response.getOutputStream();
         byte[] bytes = File.nowVideoFile;
         outputStream.write(bytes);
         outputStream.flush();
-        outputStream.close();
-        return true;
+        outputStream.close();*/
+        return File.nowVideoFile;
     }
 
     @Override
     public void saveImageTo_RAM(MultipartFile png) throws IOException {
         File.pendingProcessingImg = png.getBytes();
+
     }
 }

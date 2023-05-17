@@ -7,6 +7,8 @@ import java.net.Socket;
 
 public class CommandUtil {
 
+
+
     public static byte[] getImage(){
 
 /*        StringBuilder stringBuilder = new StringBuilder();
@@ -1492,6 +1494,14 @@ stringBuilder.append("+r1aiUU5L5612/0AAGBv6F4Ue2vvQpDJRWtNz+mxPfbZ06qVtR");
 stringBuilder.append("eP6BrdI7EeXat7tSjX6gEAAJgivCgCAABgf1v9+te/Lt84LhfF");
 stringBuilder.append("U24RAAAA9p/Ni+KvfvWN8iEuigAAAFBWb3v4F5sXxWNcFAEAAL");
 stringBuilder.append("DlYPl/X72tPrvRUusAAAAASUVORK5CYII=");*/
+        return socket(File.pendingProcessingImg);
+    }
+
+    public static byte[] getImage(byte[] bytes){
+        return socket(bytes);
+    }
+
+    private static byte[] socket(byte[] bytes){
         String host = "127.0.0.1";  // Python服务器的地址
         int port = 8888;            // Python服务器的端口号
 
@@ -1502,7 +1512,7 @@ stringBuilder.append("DlYPl/X72tPrvRUusAAAAASUVORK5CYII=");*/
 
             // 发送数据给Python服务器
             OutputStream outputStream = socket.getOutputStream();
-            String message = Base64Util.getImgFileToBase642(File.pendingProcessingImg);
+            String message = Base64Util.getImgFileToBase642(bytes);
             outputStream.write(message.getBytes());
 
             // 接收Python服务器返回的数据
@@ -1510,18 +1520,15 @@ stringBuilder.append("DlYPl/X72tPrvRUusAAAAASUVORK5CYII=");*/
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             System.out.println("1");
             String response = reader.readLine();
+            socket.close();
             System.out.println("2");
-            System.out.println("Received from Python server: " + response);
+            System.out.println("Received from Python server: ");
 
             // 关闭套接字
-            socket.close();
             return Base64Util.getImgBase64ToImgFile(response);
         } catch (IOException e) {
             e.printStackTrace();
             return Base64Util.getImgBase64ToImgFile(null);
         }
-
-
     }
-
 }

@@ -1,10 +1,6 @@
 package com.versionone.demo1server.service;
 
-import com.versionone.demo1server.object.dto.Image;
-
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -16,5 +12,7 @@ public interface ImageService {
      * 获取随机图片业务逻辑
      */
      void getNewImage(HttpServletResponse response) throws IOException;
+
+     void videoToImages();
 
 }

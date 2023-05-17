@@ -1,18 +1,20 @@
 package com.versionone.demo1server.controller;
 
 import com.versionone.demo1server.service.FileService;
-import com.versionone.demo1server.threads.Thread;
 import com.versionone.demo1server.utils.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * 文件相关接口
@@ -22,6 +24,13 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+
+    @RequestMapping(value = "/start" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> start(){
+
+        return CommonResult.success("1");
+    }
 
 
     @RequestMapping(value = "/uploadPng" , method = RequestMethod.POST)
@@ -36,7 +45,6 @@ public class FileController {
             e.printStackTrace();
             return CommonResult.failed("文件上传失败");
         }
-        Thread.start();
         return CommonResult.success("文件上传成功");
     }
 
@@ -61,14 +69,30 @@ public class FileController {
     }
 
 
-    @RequestMapping(value = "/downloadVideo" , method = RequestMethod.GET)
+    @RequestMapping(value = "/downloadVideo" , method = RequestMethod.GET ,produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
-    public CommonResult<String> videoFileDownload(HttpServletResponse response){
-        try {
-            return fileService.outputVideo(response) ? CommonResult.success("下载成功") : CommonResult.failed();
+    public ResponseEntity<StreamingResponseBody> videoFileDownload(){
+        /*try {
+            return fileService.outputVideo() ? CommonResult.success("下载成功") : CommonResult.failed();
         } catch (IOException e) {
             e.printStackTrace();
             return CommonResult.failed();
-        }
+        }*/
+
+        byte[] videoData = fileService.outputVideo();
+
+        StreamingResponseBody responseBody = outputStream -> {
+            // 模拟分块加载，每次写入部分视频数据
+            for (int i = 0; i < videoData.length; i += 1024) {
+                int chunkSize = Math.min(1024, videoData.length - i);
+                byte[] chunkData = Arrays.copyOfRange(videoData, i, i + chunkSize);
+                outputStream.write(chunkData);
+                outputStream.flush();
+            }
+        };
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(responseBody);
     }
 }
