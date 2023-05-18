@@ -15,4 +15,5 @@ public interface ImageService {
 
      void videoToImages();
 
+     byte[] getOne();
 }

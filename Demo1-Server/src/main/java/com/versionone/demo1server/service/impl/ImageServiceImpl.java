@@ -25,7 +25,6 @@
 package com.versionone.demo1server.service.impl;
 
 import com.versionone.demo1server.object.dto.File;
-import com.versionone.demo1server.object.dto.Image;
 import com.versionone.demo1server.service.ImageService;
 import com.versionone.demo1server.statics.IntelligentImageQueue;
 import com.versionone.demo1server.utils.Queue;
@@ -46,7 +45,7 @@ import java.io.IOException;
 public class ImageServiceImpl implements ImageService {
     @Override
     public void getNewImage(HttpServletResponse response) throws IOException{
-        byte[] bytes = Image.nowImage;
+        byte[] bytes = getOne();
         response.setContentType("image/png");
         ServletOutputStream outputStream = response.getOutputStream();
         outputStream.write(bytes);
@@ -84,10 +83,16 @@ public class ImageServiceImpl implements ImageService {
             }
 
             grabber.stop();
-            IntelligentImageQueue.start();
+//            IntelligentImageQueue.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public byte[] getOne() {
+        Queue<byte[]> queue = IntelligentImageQueue.beforeQueue;
+        return queue.dequeue();
     }
 
     private void entry(byte[] bytes){
