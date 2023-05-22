@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * 文件相关接口
@@ -21,20 +20,31 @@ import java.util.Map;
 @Controller
 public class FileController {
 
+    /**
+     * 负责文件业务的事务对象
+     */
     @Autowired
     private FileService fileService;
 
+    /**
+     * 负责图片业务的事务对象
+     */
     @Autowired
     private ImageService imageService;
 
+    /**
+     * 测试图片队列和视频拆分图片的接口
+     * @param power url参数
+     * @return 结果对象
+     */
     @RequestMapping(value = "/start" , method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<String> start(@RequestParam("power") String power){
         if (power.equals("114514")){
-            imageService.videoToImages();
-            return CommonResult.success("114514");
+            imageService.videoToImages();                     //视频拆分图片
+            return CommonResult.success("114514");            //成功地返回值
         }
-        return CommonResult.success("1");
+        return CommonResult.success("1");                     //参数不正确的返回
     }
 
 

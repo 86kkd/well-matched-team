@@ -30,17 +30,16 @@ public class CommandUtil {
             OutputStream outputStream = socket.getOutputStream();
             String message = Base64Util.getImgFileToBase642(bytes);
             outputStream.write(message.getBytes());
-
             // 接收Python服务器返回的数据
+
             InputStream inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            System.out.println("1");
             String response = reader.readLine();
             socket.close();
             System.out.println("2");
             System.out.println("Received from Python server: ");
-
             // 关闭套接字
+
             return Base64Util.getImgBase64ToImgFile(response);
         } catch (IOException e) {
             e.printStackTrace();

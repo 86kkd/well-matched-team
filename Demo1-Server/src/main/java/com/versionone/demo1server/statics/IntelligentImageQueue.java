@@ -37,7 +37,9 @@ public class IntelligentImageQueue {
 
     public static void start(){
         Thread t = new ImageProcessThread();
+        System.out.println("Thread t = new ImageProcessThread();");
         t.start();
+        System.out.println("t.start();");
     }
 
     private static class ImageProcessThread extends java.lang.Thread{

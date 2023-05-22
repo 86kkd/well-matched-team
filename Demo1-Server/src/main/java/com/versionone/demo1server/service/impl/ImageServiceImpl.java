@@ -76,14 +76,16 @@ public class ImageServiceImpl implements ImageService {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
                 byte[] imageBytes = byteArrayOutputStream.toByteArray();
-
+                System.out.println("byte[] imageBytes = byteArrayOutputStream.toByteArray();");
                 // 对imageBytes进一步处理
                 entry(imageBytes);
 
             }
 
             grabber.stop();
-//            IntelligentImageQueue.start();
+            System.out.println("grabber.stop();");
+            IntelligentImageQueue.start();
+            System.out.println("IntelligentImageQueue.start();");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,8 +93,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public byte[] getOne() {
-        Queue<byte[]> queue = IntelligentImageQueue.beforeQueue;
-        return queue.dequeue();
+        return IntelligentImageQueue.getNewImg();
     }
 
     private void entry(byte[] bytes){
