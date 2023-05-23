@@ -54,40 +54,49 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void videoToImages() {
-        try {
-            byte[] videoBytes = File.nowVideoFile; // 输入的视频byte数组
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(videoBytes); // 将byte数组转为inputStream
-            // 使用OpenCVFrameGrabber读取视频流
-            FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(inputStream);
-            grabber.start();
+        Thread thread = new VideoToImagesThread();
+        thread.start();
+    }
 
-            // 遍历视频帧
-            while (true) {
-                Frame frame = grabber.grabImage();
-                if (frame == null) {
-                    break;
+    private static class VideoToImagesThread extends Thread{
+        @Override
+        public void run() {
+            try {
+                byte[] videoBytes = File.nowVideoFile; // 输入的视频byte数组
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(videoBytes); // 将byte数组转为inputStream
+                // 使用OpenCVFrameGrabber读取视频流
+                FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(inputStream);
+                grabber.start();
+                int i = 0;
+                // 遍历视频帧
+                while (true) {
+                    Frame frame = grabber.grabImage();
+                    if (frame == null) {
+                        break;
+                    }
+
+                    // 将当前帧转为bufferedImage
+                    Java2DFrameConverter converter = new Java2DFrameConverter();
+                    BufferedImage bufferedImage = converter.convert(frame);
+
+                    // 将bufferedImage转为byte数组
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+                    byte[] imageBytes = byteArrayOutputStream.toByteArray();
+                    System.out.print("*");
+                    // 对imageBytes进一步处理
+                    entry(imageBytes);
+                    if (i == 0){
+                        IntelligentImageQueue.start();
+                        i++;
+                    }
                 }
 
-                // 将当前帧转为bufferedImage
-                Java2DFrameConverter converter = new Java2DFrameConverter();
-                BufferedImage bufferedImage = converter.convert(frame);
-
-                // 将bufferedImage转为byte数组
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
-                byte[] imageBytes = byteArrayOutputStream.toByteArray();
-                System.out.println("byte[] imageBytes = byteArrayOutputStream.toByteArray();");
-                // 对imageBytes进一步处理
-                entry(imageBytes);
-
+                grabber.stop();
+                System.out.println("grabber.stop();");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            grabber.stop();
-            System.out.println("grabber.stop();");
-            IntelligentImageQueue.start();
-            System.out.println("IntelligentImageQueue.start();");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -96,7 +105,7 @@ public class ImageServiceImpl implements ImageService {
         return IntelligentImageQueue.getNewImg();
     }
 
-    private void entry(byte[] bytes){
+    private static void entry(byte[] bytes){
         Queue<byte[]> queue = IntelligentImageQueue.beforeQueue;
         queue.enqueue(bytes);
     }
