@@ -9,4 +9,6 @@ public interface CarService extends IService<Car> {
 
     Car getRandomCarInfo();
 
+    Car brake(Integer id, Double time ,Double strength);
+
 }

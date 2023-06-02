@@ -145,4 +145,11 @@ public class Car implements Serializable {
     public void setBraking(Integer braking) {
         this.braking = braking;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                '}';
+    }
 }
