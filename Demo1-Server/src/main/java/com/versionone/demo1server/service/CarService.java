@@ -7,4 +7,9 @@ public interface CarService extends IService<Car> {
 
     Car getCarInfoById(Integer id);
 
+    Car getRandomCarInfo();
+
+    Car brake(Integer id, Double time ,Double strength);
+
+    Car accelerate(Integer id, Double time ,Double strength);
 }

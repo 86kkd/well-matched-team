@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Random;
+
 
 @Controller
 public class CarController {
@@ -25,12 +26,37 @@ public class CarController {
     @ResponseBody
     public CommonResult<Car> getRandomCarInfo(){
         try {
-            Random r = new Random();
-            return CommonResult.success(service.getCarInfoById(r.nextInt(1000) + 1));
+//            Random r = new Random();
+            return CommonResult.success(service.getRandomCarInfo());
         }catch (Exception e){
             e.printStackTrace();
             return CommonResult.failed();
         }
     }
 
+    /**
+     * 刹车接口
+     * @param time 时间
+     * @return 汽车信息
+     */
+    @RequestMapping(value = "/brake" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Car> braking(@RequestParam("id")Integer id ,@RequestParam("time")Double time,@RequestParam("strength")Double strength){
+        Car car = service.brake(id, time, strength);
+        return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
+    }
+
+    /**
+     * 加速接口
+     * @param id 汽车id
+     * @param time 加速时间
+     * @param strength 油门力度
+     * @return 汽车信息
+     */
+    @RequestMapping(value = "/accelerate" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Car> accelerate(@RequestParam("id")Integer id ,@RequestParam("time")Double time,@RequestParam("strength")Double strength){
+        Car car = service.accelerate(id, time, strength);
+        return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
+    }
 }
