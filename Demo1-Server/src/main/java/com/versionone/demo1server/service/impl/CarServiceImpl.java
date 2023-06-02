@@ -59,6 +59,13 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         return subsequentOperations(car,id);
     }
 
+
+    /**
+     * 切换挡位
+     * @param id 汽车id
+     * @param gear 挡位
+     * @return 汽车对象
+     */
     @Override
     public Car shiftSwitching(Integer id, Integer gear) {
         if (!RuleMatch.gearMatching(gear)){ //挡位不合法
@@ -71,6 +78,28 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         return subsequentOperations(car,id);
     }
 
+    /**
+     * 切换灯光
+     * @param id 汽车id
+     * @param light 灯光值
+     * @return 汽车对象
+     */
+    @Override
+    public Car shiftLight(Integer id, Integer light) {
+        if (!RuleMatch.lightMatching(light)){
+            return null;
+        }
+        Car car = getCarById(id);
+        car.setLight(light);
+        return subsequentOperations(car,id);
+    }
+
+    /**
+     * 后置处理方法，用于更新车辆信息
+     * @param car 汽车对象
+     * @param id 汽车id
+     * @return 汽车对象
+     */
     private Car subsequentOperations(Car car,Integer id){
         saveOrUpdate(car);
         updateCarOnList(car, id);

@@ -14,4 +14,6 @@ public interface CarService extends IService<Car> {
     Car accelerate(Integer id, Double time ,Double strength);
 
     Car shiftSwitching(Integer id, Integer gear);
+
+    Car shiftLight(Integer id, Integer light);
 }

@@ -23,4 +23,21 @@ public class RuleMatch {
         }
     }
 
+    /**
+     * 灯光规则匹配
+     * @param light 灯光值
+     * @return 是否合法
+     */
+    public static boolean lightMatching(Integer light){
+        switch (light){
+            case 1:
+            case 2:
+            case 4:
+            case 8:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }
