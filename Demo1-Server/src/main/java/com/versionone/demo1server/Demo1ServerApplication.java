@@ -1,6 +1,5 @@
 package com.versionone.demo1server;
 
-
 import com.versionone.demo1server.threads.BootList;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

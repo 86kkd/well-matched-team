@@ -46,4 +46,17 @@ public class CarController {
         return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
     }
 
+    /**
+     * 加速接口
+     * @param id 汽车id
+     * @param time 加速时间
+     * @param strength 油门力度
+     * @return 汽车信息
+     */
+    @RequestMapping(value = "/accelerate" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Car> accelerate(@RequestParam("id")Integer id ,@RequestParam("time")Double time,@RequestParam("strength")Double strength){
+        Car car = service.accelerate(id, time, strength);
+        return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
+    }
 }
