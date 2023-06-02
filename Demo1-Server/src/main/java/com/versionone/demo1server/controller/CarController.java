@@ -59,4 +59,17 @@ public class CarController {
         Car car = service.accelerate(id, time, strength);
         return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
     }
+
+    /**
+     * 挡位切换接口
+     * @param id 汽车id
+     * @param gear 挡位
+     * @return 结果
+     */
+    @RequestMapping(value = "/shift" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Car> shiftGear(@RequestParam("id")Integer id ,@RequestParam("gear")Integer gear){
+        Car car = service.shiftSwitching(id, gear);
+        return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
+    }
 }
