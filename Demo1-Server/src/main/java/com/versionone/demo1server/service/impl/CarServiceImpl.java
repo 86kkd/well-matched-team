@@ -19,6 +19,9 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
 
     @Override
     public Car getCarInfoById(Integer id) {
+        if (id <= 0){
+            return null;
+        }
         return getById(id);
     }
 

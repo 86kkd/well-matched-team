@@ -19,6 +19,18 @@ public class CarController {
     private CarService service;
 
     /**
+     * 获取指定车辆信息接口
+     * @param id 车辆id
+     * @return 车辆信息
+     */
+    @RequestMapping(value = "/getCarInfoById" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Car> getCarById(@RequestParam("id")Integer id){
+        Car car = service.getCarInfoById(id);
+        return car == null ? CommonResult.failed("数据异常") : CommonResult.success(car);
+    }
+
+    /**
      * 获取随机车辆信息接口
      * @return 车辆信息对象
      */
