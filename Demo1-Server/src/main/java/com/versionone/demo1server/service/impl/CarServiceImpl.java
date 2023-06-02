@@ -5,6 +5,7 @@ import com.versionone.demo1server.mapper.CarMapper;
 import com.versionone.demo1server.object.entity.Car;
 import com.versionone.demo1server.service.CarService;
 import com.versionone.demo1server.statics.Redis;
+import com.versionone.demo1server.utils.RuleMatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +36,9 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         Double speed = car.getSpeed();
         Double resultSpeed = getBrakeResult(time,speed,strength);
         car.setSpeed(resultSpeed);
-        saveOrUpdate(car);
-        updateCarOnList(car,id);
-        return car;
+//        saveOrUpdate(car);
+//        updateCarOnList(car,id);
+        return subsequentOperations(car,id);
     }
 
     @Override
@@ -46,11 +47,62 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
             return null;
         }
         Car car = getCarById(id);
+        Integer gear = car.getGear();
+        if (gear == 0 || gear == 2){       //N档或者P档，不允许加速
+            return car;
+        }
         Double speed = car.getSpeed();
         Double resultSpeed = getAccelerateResult(time,speed,strength);
         car.setSpeed(resultSpeed);
+//        saveOrUpdate(car);
+//        updateCarOnList(car,id);
+        return subsequentOperations(car,id);
+    }
+
+
+    /**
+     * 切换挡位
+     * @param id 汽车id
+     * @param gear 挡位
+     * @return 汽车对象
+     */
+    @Override
+    public Car shiftSwitching(Integer id, Integer gear) {
+        if (!RuleMatch.gearMatching(gear)){ //挡位不合法
+            return null;
+        }
+        Car car = getCarById(id);
+        car.setGear(gear);
+//        saveOrUpdate(car);
+//        updateCarOnList(car,id);
+        return subsequentOperations(car,id);
+    }
+
+    /**
+     * 切换灯光
+     * @param id 汽车id
+     * @param light 灯光值
+     * @return 汽车对象
+     */
+    @Override
+    public Car shiftLight(Integer id, Integer light) {
+        if (!RuleMatch.lightMatching(light)){
+            return null;
+        }
+        Car car = getCarById(id);
+        car.setLight(light);
+        return subsequentOperations(car,id);
+    }
+
+    /**
+     * 后置处理方法，用于更新车辆信息
+     * @param car 汽车对象
+     * @param id 汽车id
+     * @return 汽车对象
+     */
+    private Car subsequentOperations(Car car,Integer id){
         saveOrUpdate(car);
-        updateCarOnList(car,id);
+        updateCarOnList(car, id);
         return car;
     }
 
