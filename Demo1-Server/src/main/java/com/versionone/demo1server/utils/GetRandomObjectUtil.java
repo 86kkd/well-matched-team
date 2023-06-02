@@ -1,14 +1,15 @@
 package com.versionone.demo1server.utils;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
+
+import static com.versionone.demo1server.statics.StaticObject.RANDOM; //静态的获取随机数对象
 
 /**
  * 获取随机对象工具类
  * 作者：016
  */
 public class GetRandomObjectUtil {
-    public static final Random RANDOM = new Random();    //静态的获取随机数对象
+//    public static final Random RANDOM = new Random();    //静态的获取随机数对象
 
     /**
      * 获取图片

@@ -7,4 +7,6 @@ public interface CarService extends IService<Car> {
 
     Car getCarInfoById(Integer id);
 
+    Car getRandomCarInfo();
+
 }
