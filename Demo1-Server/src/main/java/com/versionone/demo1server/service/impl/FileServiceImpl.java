@@ -10,14 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+/**
+ * 文件事务
+ */
 @Service
 public class FileServiceImpl implements FileService {
+
+    /**
+     * 保存视频到内存中
+     * @param video 视频对象
+     * @throws IOException IO异常
+     */
     @Override
     public void saveVideoTo_RAM(MultipartFile video) throws IOException{
         File.nowVideoFile = video.getBytes();
         File.nowVideoFilename = video.getOriginalFilename();
     }
 
+    /**
+     * 输出视频二进制流到前台
+     * @param response 响应体对象
+     * @return 成功与否
+     * @throws IOException IO异常
+     */
     @Override
     public boolean outputVideo(HttpServletResponse response) throws IOException {
         response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(File.nowVideoFilename, "UTF-8"));

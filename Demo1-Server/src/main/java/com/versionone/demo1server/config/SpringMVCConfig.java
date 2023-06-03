@@ -7,8 +7,16 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Web配置信息
+ */
 @Configuration
 public class SpringMVCConfig implements WebMvcConfigurer {
+
+    /**
+     * 解决跨域问题
+     * @param registry CorsRegistry对象
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

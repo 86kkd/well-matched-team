@@ -17,6 +17,9 @@ import java.io.IOException;
 @Controller
 public class ImageController {
 
+    /**
+     * 图片事务层对象
+     */
     @Autowired
     private ImageService imageService;       //注入图片服务
 
@@ -46,6 +49,9 @@ public class ImageController {
 
     }
 
+    /*
+     *静态代码块，使用该类前的初始化代码
+     */
     static {
         //开启一个图片创建线程
         Thread imageThread = new ImageCreateThread();

@@ -9,8 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * 图片事务
+ */
 @Service
 public class ImageServiceImpl implements ImageService {
+
+    /**
+     * 获取随机图片
+     * @param response 响应对象
+     * @throws IOException IO异常
+     */
     @Override
     public void getRandomImage(HttpServletResponse response) throws IOException {
         //服务器通知浏览器不要缓存

@@ -23,14 +23,24 @@ public class CarInfoReaderThread{
 
     }
 
+    /**
+     * 私有内部线程类
+     */
     private static class PrivateCarInfoReaderThread extends java.lang.Thread{
 
         private final CarMapper carMapper;
 
+        /**
+         * 通过构造器获取汽车数据库读写接口对象
+         * @param carMapper mapper对象
+         */
         public PrivateCarInfoReaderThread(CarMapper carMapper){
             this.carMapper = carMapper;
         }
 
+        /**
+         * 线程执行逻辑：不断读取数据库中的汽车信息，并存到Redis的汽车表里面，循环间隔时间是3s
+         */
         @Override
         public void run() {
             while (true) {

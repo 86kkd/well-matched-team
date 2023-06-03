@@ -19,6 +19,9 @@ import java.io.IOException;
 @Controller
 public class FileController {
 
+    /**
+     * 文件事务层对象
+     */
     @Autowired
     private FileService fileService;
 
@@ -43,6 +46,11 @@ public class FileController {
     }
 
 
+    /**
+     * 下载视频接口
+     * @param response 响应体对象
+     * @return 结果
+     */
     @RequestMapping(value = "/downloadVideo" , method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<String> videoFileDownload(HttpServletResponse response){
