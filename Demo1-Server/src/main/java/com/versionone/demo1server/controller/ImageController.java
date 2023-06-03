@@ -1,8 +1,8 @@
 package com.versionone.demo1server.controller;
 
 import com.versionone.demo1server.service.ImageService;
+import com.versionone.demo1server.threads.ImageCreateThread;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,21 +17,23 @@ import java.io.IOException;
 @Controller
 public class ImageController {
 
+    /**
+     * 图片事务层对象
+     */
     @Autowired
     private ImageService imageService;       //注入图片服务
 
     /**
      * 获取随机图片接口
      */
-    @RequestMapping(value = "/getLatestImage-test" , method = RequestMethod.GET ,produces = MediaType.IMAGE_PNG_VALUE)
+    @RequestMapping(value = "/getLatestImage-test" , method = RequestMethod.GET)
     public void imageDown(HttpServletResponse response){
 
         try {
-            imageService.getNewImage(response);
+            imageService.getRandomImage(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
        /* //创建HttpHeaders对象，设置响应头信息
@@ -47,5 +49,12 @@ public class ImageController {
 
     }
 
-
+    /*
+     *静态代码块，使用该类前的初始化代码
+     */
+    static {
+        //开启一个图片创建线程
+        Thread imageThread = new ImageCreateThread();
+        imageThread.start();
+    }
 }

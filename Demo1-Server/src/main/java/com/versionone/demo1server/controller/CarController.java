@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-
+/**
+ * 前端控制器
+ * 汽车相关的接口
+ */
 @Controller
 public class CarController {
 
+    /**
+     * Car的事务层对象
+     */
     @Autowired
     private CarService service;
 

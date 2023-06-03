@@ -9,7 +9,7 @@ public class Demo1ServerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(Demo1ServerApplication.class, args);
-        BootList.start();
+        BootList.start();                   //线程列表，启动
     }
 
 }

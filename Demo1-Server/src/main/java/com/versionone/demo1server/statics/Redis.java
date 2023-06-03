@@ -13,14 +13,25 @@ import static com.versionone.demo1server.statics.StaticObject.RANDOM;
  */
 public class Redis {
 
+    /*
+     *汽车信息表初始化
+     */
     static {
         cars = new LinkedList<>();
     }
 
     private static  List<Car> cars;
 
+    /**
+     * 汽车信息表数据库读写接口对象
+     */
     public static CarMapper carMapper;
 
+    /**
+     * 更新汽车信息方法
+     * @param id 汽车id
+     * @param car 汽车对象
+     */
     public static void updateCarInfoById(Integer id,Car car){
         cars.set(id,car);
     }
