@@ -127,6 +127,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
             return null;
         }
         Car car = getCarById(id);
+        car.setDoor(door);
         return subsequentOperations(car,id);
     }
 
