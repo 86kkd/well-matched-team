@@ -48,7 +48,9 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         }
         Car car = getCarById(id);
         Integer gear = car.getGear();
-        if (gear == 0 || gear == 2){       //N档或者P档，不允许加速
+        Integer braking = car.getBraking();
+        Integer door = car.getDoor();
+        if (gear == 0 || gear == 2 || braking == 1 || door != 0){       //N档或者P档，正在拉着手刹，车门没关完，不允许加速
             return car;
         }
         Double speed = car.getSpeed();
@@ -91,6 +93,38 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         }
         Car car = getCarById(id);
         car.setLight(light);
+        return subsequentOperations(car,id);
+    }
+
+    /**
+     * 切换转向灯
+     * @param id 汽车id
+     * @param turnLight 转向灯值
+     * @return 汽车对象
+     */
+    @Override
+    public Car shiftTurnLight(Integer id, Integer turnLight) {
+        if (!RuleMatch.turnLightMatching(turnLight)){
+            return null;
+        }
+        Car car = getCarById(id);
+        car.setTurnLight(turnLight);
+        return subsequentOperations(car,id);
+    }
+
+    /**
+     * 切换车门状态
+     * @param id 汽车id
+     * @param door 车门状态值
+     * @return 汽车对象
+     */
+    @Override
+    public Car shiftDoor(Integer id, Integer door) {
+        if (!RuleMatch.doorMatching(door)){
+            return null;
+        }
+        Car car = getCarById(id);
+        car.setDoor(door);
         return subsequentOperations(car,id);
     }
 
