@@ -40,4 +40,41 @@ public class RuleMatch {
         }
     }
 
+    /**
+     * 转向灯规则匹配
+     * @param turnLight 转向灯值
+     * @return 是否合法
+     */
+    public static boolean turnLightMatching(Integer turnLight){
+        return lightMatching(turnLight);                        // 规则一致，代码复用
+    }
+
+    /**
+     * 车门状态规则匹配
+     * @param door 车门状态值
+     * @return 是否合法
+     */
+    public static boolean doorMatching(Integer door){
+        return door>=0 && door <=15;
+        /*
+        一共16种车门状态
+        0000
+        0001
+        0010
+        0011
+        0100
+        0101
+        0110
+        0111
+        1000
+        1001
+        1010
+        1011
+        1100
+        1101
+        1110
+        1111
+         */
+    }
+
 }
