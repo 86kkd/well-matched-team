@@ -160,6 +160,13 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
         return subsequentOperations(car,id);
     }
 
+    @Override
+    public Car shiftBreak(Integer id) {
+        Car car = getCarById(id);
+        car.setBraking( car.getBraking() == 1 ? 0 : 1 );
+        return subsequentOperations(car,id);
+    }
+
     /**
      * 后置处理方法，用于更新车辆信息
      * @param car 汽车对象
