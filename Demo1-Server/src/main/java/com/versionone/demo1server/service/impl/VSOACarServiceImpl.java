@@ -38,19 +38,19 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (RuleMatch.powerMatching(power)){
+        if (!RuleMatch.powerMatching(power)){
             return "电量值非法";
         }
         return sendRequest("/power",getPowerPayload(power));
     }
 
-    //TODO
+
     @Override
     public String setMileage(int mileage) {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        return null;
+        return sendRequest("/mileage",getMileagePayload(mileage));
     }
 
     @Override
@@ -73,18 +73,17 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!RuleMatch.gearMatching(gear)){
             return "挡位值非法";
         }
-        return null;
+        return sendRequest("/gear",getGearPayload(gear));
     }
 
     private String sendRequest(String url){
         Client client = Redis.CAR_CLIENT;
-        final String[] msg = new String[1];
         client.call(url, VSOA_METHOD_GET, null, new CBCall() {
             @Override
             public void callback(Error error, Payload payload, int tunid) {
                 if (error != null) {
                     System.out.println("RPC call error:" + error.message);
-                    msg[0] = error.message;
+                    Redis.MSG = error.message;
                 } else {
                     Stream stream = client.createStream(tunid, Stream.DEF_TIMEOUT);
                     if (stream != null) {
@@ -95,30 +94,29 @@ public class VSOACarServiceImpl implements VSOACarService {
                                 strData.append(Integer.toHexString(datum));
                             }
                             System.out.println("Stream received:" + strData);
-                            msg[0] = strData.toString();
+                            Redis.MSG = strData.toString();
                         }
                     }
                 }
             }
         }, 2000);
-        return msg[0];
+        return Redis.MSG;
     }
 
     private String sendRequest(String url, Payload payload){
         Client carClient = Redis.CAR_CLIENT;
-        final String[] msg = new String[1];
         carClient.call(url, com.acoinfo.vsoa.Request.VSOA_METHOD_SET,payload, new CBCall() {
             @Override
             public void callback(Error error, Payload payload, int tunid) {
                 if (error != null) {
                     System.out.println("RPC call error:" + error.message);
-                    msg[0] = error.message;
+                    Redis.MSG = error.message;
                 } else {
                     System.out.println("RPC call reply:" + payload.param);
-                    msg[0] = payload.param;
+                    Redis.MSG = payload.param;
                 }
             }
         },2000);
-        return msg[0];
+        return Redis.MSG;
     }
 }

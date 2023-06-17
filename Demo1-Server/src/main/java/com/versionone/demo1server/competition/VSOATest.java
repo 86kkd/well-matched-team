@@ -13,8 +13,8 @@ import static com.versionone.demo1server.statics.StaticObject.*;
 public class VSOATest {
 
     public static void main(String[] args) {
-//        Thread thread = new ClientCreateThread();
-//        thread.start();
+        Thread thread = new ClientCreateThread();
+        thread.start();
 
         while (true) {
             if (!Redis.IS_CONNECTED){
@@ -41,7 +41,7 @@ public class VSOATest {
         }
 
     }
-    /*private static class ClientCreateThread extends Thread{
+    private static class ClientCreateThread extends Thread{
         @Override
         public void run() {
             Client carClient = Redis.CAR_CLIENT;
@@ -53,5 +53,5 @@ public class VSOATest {
             System.out.println("qqqq");
             Redis.IS_CONNECTED = true;
         }
-    }*/
+    }
 }

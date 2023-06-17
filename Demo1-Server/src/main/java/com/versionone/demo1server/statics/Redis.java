@@ -27,6 +27,8 @@ public class Redis {
 
     public static  Boolean IS_CONNECTED = Boolean.FALSE;
 
+    public static String MSG;
+
     private static  List<Car> cars;
 
     /**
