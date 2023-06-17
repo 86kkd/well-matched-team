@@ -4,11 +4,11 @@ import com.acoinfo.vsoa.*;
 import com.acoinfo.vsoa.Error;
 import com.versionone.demo1server.service.VSOACarService;
 import com.versionone.demo1server.statics.Redis;
+import com.versionone.demo1server.utils.RuleMatch;
 import org.springframework.stereotype.Service;
 
 import static com.acoinfo.vsoa.Request.VSOA_METHOD_GET;
-import static com.versionone.demo1server.statics.StaticObject.getPowerPayload;
-import static com.versionone.demo1server.statics.StaticObject.getSpeedPayload;
+import static com.versionone.demo1server.statics.StaticObject.*;
 
 @Service
 public class VSOACarServiceImpl implements VSOACarService {
@@ -21,6 +21,9 @@ public class VSOACarServiceImpl implements VSOACarService {
     public String setSpeed(int speed) {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.speedMatching(speed)){
+            return "速度值非法";
         }
         return sendRequest("/speed",getSpeedPayload(speed));
     }
@@ -35,7 +38,42 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
+        if (RuleMatch.powerMatching(power)){
+            return "电量值非法";
+        }
         return sendRequest("/power",getPowerPayload(power));
+    }
+
+    //TODO
+    @Override
+    public String setMileage(int mileage) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        return null;
+    }
+
+    @Override
+    public String setLight(int light) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.lightMatching(light)){
+            return "灯光值非法";
+        }
+        return sendRequest("/light",getLightPayload(light));
+    }
+
+    //TODO
+    @Override
+    public String setGear(int gear) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.gearMatching(gear)){
+            return "挡位值非法";
+        }
+        return null;
     }
 
     private String sendRequest(String url){

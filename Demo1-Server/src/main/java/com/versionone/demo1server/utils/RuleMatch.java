@@ -12,6 +12,7 @@ public class RuleMatch {
      */
     public static boolean gearMatching(Integer gear){
         switch (gear){
+            case 0:
             case 1:
             case 2:
             case 3:
@@ -24,12 +25,31 @@ public class RuleMatch {
     }
 
     /**
+     * 速度匹配规则 0-240
+     * @param speed 速度值
+     * @return 是否合法
+     */
+    public static boolean speedMatching(int speed){
+        return speed>=0 && speed <=240;
+    }
+
+    /**
+     * 电量匹配规则
+     * @param power 电量值
+     * @return 是否合法
+     */
+    public static boolean powerMatching(int power){
+        return power>=0 && power <=100;
+    }
+
+    /**
      * 灯光规则匹配
      * @param light 灯光值
      * @return 是否合法
      */
     public static boolean lightMatching(Integer light){
         switch (light){
+            case 0:
             case 1:
             case 2:
             case 4:
