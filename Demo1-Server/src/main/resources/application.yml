@@ -6,7 +6,6 @@ spring:
     username: '016'
     password: 'MySql@016016'
 
-
   servlet:
     multipart:
       max-file-size: 512MB
