@@ -6,10 +6,9 @@ import com.acoinfo.vsoa.Error;
 import java.net.InetSocketAddress;
 
 public class ClientApplication {
-    private  static boolean POS_MANUALLY  = true;
-    private  static String  SERVER_NAME   = "light_server";
+    private  static String  SERVER_NAME   = "automobile_dash_board";
     private  static String  PASSWORD      = "123456";
-    private  static String  POS_ADDRESS   = "127.0.0.1";
+    private  static String  POS_ADDRESS   = "192.168.116.130";
     private  static int     POS_PORT      = 3000;
 
     public   static Client client;
@@ -32,7 +31,7 @@ public class ClientApplication {
             }
         };
 
-        if (POS_MANUALLY) {
+        if (true) {
             VsoaSocketAddress address;
             try {
                 address = Position.lookup(new InetSocketAddress(POS_ADDRESS, POS_PORT), SERVER_NAME, 0);

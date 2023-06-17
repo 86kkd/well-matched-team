@@ -14,6 +14,8 @@ public class CarInfoReaderThread{
     static {
         java.lang.Thread thread = new PrivateCarInfoReaderThread(Redis.carMapper);
         thread.start();
+        java.lang.Thread thread1 = new CarClientCreateThread();
+        thread1.start();
     }
 
     /**

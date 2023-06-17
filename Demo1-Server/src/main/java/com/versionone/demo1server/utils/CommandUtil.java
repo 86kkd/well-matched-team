@@ -34,6 +34,7 @@ public class CommandUtil {
 
             InputStream inputStream = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            System.out.println("\n1111111111111");
             String response = reader.readLine();
             socket.close();
             System.out.println("2");
