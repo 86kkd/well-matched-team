@@ -13,8 +13,8 @@ import static com.versionone.demo1server.statics.StaticObject.*;
 public class VSOATest {
 
     public static void main(String[] args) {
-        /*Thread thread = new ClientCreateThread();
-        thread.start();*/
+//        Thread thread = new ClientCreateThread();
+//        thread.start();
 
         while (true) {
             if (!Redis.IS_CONNECTED){
@@ -26,8 +26,8 @@ public class VSOATest {
                 continue;
             }
             Client carClient = Redis.CAR_CLIENT;
-            Payload payload = new Payload(SpeedPlayload(20),null);
-            carClient.call("/speed",VSOA_METHOD_SET,payload, new CBCall() {
+//            Payload payload = new Payload(SpeedPlayload(20),null);
+            carClient.call("/speed",VSOA_METHOD_SET,getSpeedPayload(20), new CBCall() {
                 @Override
                 public void callback(Error error, Payload payload, int tunid) {
                     if (error != null) {

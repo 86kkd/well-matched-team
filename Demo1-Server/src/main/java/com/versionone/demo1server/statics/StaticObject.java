@@ -1,5 +1,7 @@
 package com.versionone.demo1server.statics;
 
+import com.acoinfo.vsoa.Payload;
+
 import java.util.Random;
 
 /**
@@ -12,9 +14,25 @@ public class StaticObject {
     public  static String  POS_ADDRESS   = "192.168.116.130";
     public  static int     POS_PORT      = 3000;
 
-    public static String SpeedPlayload(int speed){
+    public static Payload getSpeedPayload(int speed){
+        String p = speedPayload(speed);
+        return new Payload(p,null);
+    }
+
+    private static String speedPayload(int speed){
         return "{\"speed\":" +
                 speed +
+                "}";
+    }
+
+    public static Payload getPowerPayload(int power){
+        String p = powerPayload(power);
+        return new Payload(p,null);
+    }
+
+    private static String powerPayload(int power){
+        return "{\"power\":" +
+                power +
                 "}";
     }
 
