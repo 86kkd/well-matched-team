@@ -4,6 +4,7 @@ import com.acoinfo.vsoa.Client;
 import com.acoinfo.vsoa.ClientOption;
 import com.versionone.demo1server.mapper.CarMapper;
 import com.versionone.demo1server.object.entity.Car;
+import com.versionone.demo1server.service.VSOACarService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +27,8 @@ public class Redis {
     public static final Client CAR_CLIENT = new Client(new ClientOption(PASSWORD, 6000, 4000, 3, false));
 
     public static  Boolean IS_CONNECTED = Boolean.FALSE;
+
+    public static VSOACarService vsoaCarService;
 
     public static String MSG;
 
