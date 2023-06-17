@@ -7,7 +7,7 @@ package com.versionone.demo1server.object.dto;
 public class File {
 
     public static byte[] nowVideoFile; //存储在内存的视频文件
-    public static String nowVideoFilename;
+    public static String nowVideoFilename; //文件名
 
     public static byte[] pendingProcessingImg;
 

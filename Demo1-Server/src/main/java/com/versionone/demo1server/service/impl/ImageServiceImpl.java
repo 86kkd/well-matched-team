@@ -41,8 +41,17 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/**
+ * 图片事务
+ */
 @Service
 public class ImageServiceImpl implements ImageService {
+
+    /**
+     * 获取随机图片
+     * @param response 响应对象
+     * @throws IOException IO异常
+     */
     @Override
     public void getNewImage(HttpServletResponse response) throws IOException{
         byte[] bytes = getOne();
