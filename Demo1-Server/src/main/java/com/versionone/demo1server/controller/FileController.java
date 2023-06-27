@@ -1,5 +1,6 @@
 package com.versionone.demo1server.controller;
 
+import com.versionone.demo1server.handler.VideoHttpRequestHandler;
 import com.versionone.demo1server.service.FileService;
 import com.versionone.demo1server.utils.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -18,6 +21,9 @@ import java.io.IOException;
  */
 @Controller
 public class FileController {
+
+    @Autowired
+    private VideoHttpRequestHandler videoHttpRequestHandler;
 
     /**
      * 文件事务层对象
@@ -59,6 +65,17 @@ public class FileController {
         } catch (IOException e) {
             e.printStackTrace();
             return CommonResult.failed();
+        }
+    }
+
+    @RequestMapping(value = {"/video1","/video2","/video3"} , method = RequestMethod.GET)
+    public void playVideo(HttpServletRequest request, HttpServletResponse response){
+        try {
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
