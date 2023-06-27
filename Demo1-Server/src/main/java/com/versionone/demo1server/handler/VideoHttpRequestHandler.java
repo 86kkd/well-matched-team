@@ -1,21 +1,19 @@
 package com.versionone.demo1server.handler;
 
+import com.versionone.demo1server.object.dto.File;
+import com.versionone.demo1server.utils.FileUtil;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.file.Path;
 
-public class VideoHttpRequestHandler
-extends ResourceHttpRequestHandler {
-
-    public final static String ATTR_FILE = "NON-STATIC-FILE";
+@Component
+public class VideoHttpRequestHandler extends ResourceHttpRequestHandler {
 
     @Override
-    protected Resource getResource(HttpServletRequest request) throws IOException {
-        final Path filePath = (Path) request.getAttribute(ATTR_FILE);
-        return new FileSystemResource(filePath);
+    protected Resource getResource(HttpServletRequest request) {
+        return new FileSystemResource(FileUtil.byteToFile(File.nowVideoFile,"./",File.nowVideoFilename));
     }
 }
