@@ -8,7 +8,8 @@ import java.net.InetSocketAddress;
 
 import static com.acoinfo.vsoa.Constant.VSOA_DEF_CONN_TIMEOUT;
 import static com.acoinfo.vsoa.Request.*;
-import static com.versionone.demo1server.statics.StaticObject.*;
+import static com.versionone.demo1server.statics.Redis.*;
+import static com.versionone.demo1server.utils.PayloadUtil.getSpeedPayload;
 
 public class VSOATest {
 

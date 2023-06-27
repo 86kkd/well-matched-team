@@ -8,7 +8,7 @@ import com.versionone.demo1server.utils.RuleMatch;
 import org.springframework.stereotype.Service;
 
 import static com.acoinfo.vsoa.Request.VSOA_METHOD_GET;
-import static com.versionone.demo1server.statics.StaticObject.*;
+import static com.versionone.demo1server.utils.PayloadUtil.*;
 
 @Service
 public class VSOACarServiceImpl implements VSOACarService {

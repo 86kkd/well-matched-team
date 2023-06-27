@@ -6,23 +6,32 @@ import com.versionone.demo1server.mapper.CarMapper;
 import com.versionone.demo1server.object.entity.Car;
 import com.versionone.demo1server.service.VSOACarService;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import static com.versionone.demo1server.statics.StaticObject.PASSWORD;
-import static com.versionone.demo1server.statics.StaticObject.RANDOM;
+import java.util.*;
 
 /**
  * 简易的内存数据库
  */
 public class Redis {
+    public  static String  SERVER_NAME   = "automobile_dash_board";
+    public  static String  PASSWORD      = "123456";
+    public  static String  POS_ADDRESS   = "192.168.116.130";
+    public  static int     POS_PORT      = 3000;
 
     /*
      *汽车信息表初始化
      */
     static {
         cars = new LinkedList<>();
+        CAR_DOORS = new TreeMap<>();
+        RANDOM = new Random();
     }
+
+    /**
+     * 随机数变量
+     */
+    public static final Random RANDOM ;
+
+    public static final Map<String,Boolean> CAR_DOORS;
 
     public static final Client CAR_CLIENT = new Client(new ClientOption(PASSWORD, 6000, 4000, 3, false));
 

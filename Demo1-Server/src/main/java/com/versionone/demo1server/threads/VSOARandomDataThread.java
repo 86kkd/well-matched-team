@@ -1,12 +1,12 @@
 package com.versionone.demo1server.threads;
 
 import com.versionone.demo1server.service.VSOACarService;
-import com.versionone.demo1server.statics.StaticObject;
+import com.versionone.demo1server.statics.Redis;
 
 import java.util.Random;
 
 public class VSOARandomDataThread extends java.lang.Thread{
-    private final Random random = StaticObject.RANDOM;
+    private final Random random = Redis.RANDOM;
     private final VSOACarService carService;
 
     public VSOARandomDataThread(VSOACarService service){

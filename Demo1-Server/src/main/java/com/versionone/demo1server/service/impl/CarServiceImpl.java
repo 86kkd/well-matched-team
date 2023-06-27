@@ -9,7 +9,7 @@ import com.versionone.demo1server.utils.RuleMatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.versionone.demo1server.statics.StaticObject.RANDOM;
+import static com.versionone.demo1server.statics.Redis.RANDOM;
 
 /**
  * 汽车对象事务

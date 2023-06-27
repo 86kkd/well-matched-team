@@ -2,7 +2,7 @@ package com.versionone.demo1server.utils;
 
 import java.awt.image.BufferedImage;
 
-import static com.versionone.demo1server.statics.StaticObject.RANDOM;
+import static com.versionone.demo1server.statics.Redis.RANDOM;
 
 /**
  * 获取随机对象工具类

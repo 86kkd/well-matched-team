@@ -8,7 +8,7 @@ import com.versionone.demo1server.statics.Redis;
 import java.net.InetSocketAddress;
 
 import static com.acoinfo.vsoa.Constant.VSOA_DEF_CONN_TIMEOUT;
-import static com.versionone.demo1server.statics.StaticObject.*;
+import static com.versionone.demo1server.statics.Redis.*;
 
 public class CarClientCreateThread extends java.lang.Thread {
     @Override
