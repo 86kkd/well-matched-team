@@ -11,6 +11,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+/**
+ * SpringMVC配置类
+ */
 @Configuration
 public class SpringMVCConfig implements WebMvcConfigurer {
 

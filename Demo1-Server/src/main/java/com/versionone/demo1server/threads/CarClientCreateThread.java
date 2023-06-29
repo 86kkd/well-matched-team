@@ -10,6 +10,9 @@ import java.net.InetSocketAddress;
 import static com.acoinfo.vsoa.Constant.VSOA_DEF_CONN_TIMEOUT;
 import static com.versionone.demo1server.statics.Redis.*;
 
+/**
+ * 汽车中心连接创建线程，用于在启动项目时自动连接
+ */
 public class CarClientCreateThread extends java.lang.Thread {
     @Override
     public void run() {

@@ -5,6 +5,9 @@ import com.acoinfo.vsoa.Error;
 
 import java.net.InetSocketAddress;
 
+/**
+ * VSOA客户端类
+ */
 public class ClientApplication {
     private  static String  SERVER_NAME   = "automobile_dash_board";
     private  static String  PASSWORD      = "123456";

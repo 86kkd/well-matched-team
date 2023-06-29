@@ -105,6 +105,10 @@ public class VSOACarController {
         }
     }
 
+    /**
+     * 平台随机数据设置接口
+     * @return 结果信息
+     */
     @RequestMapping(value = "/v_start" , method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<String> randomDate(){

@@ -4,6 +4,9 @@ package com.versionone.demo1server.utils;
 
 import java.io.*;
 
+/**
+ * base64工具类
+ */
 public class Base64Util {
     /**
      * 本地图片转base64

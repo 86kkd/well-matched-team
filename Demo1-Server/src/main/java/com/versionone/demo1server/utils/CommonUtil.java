@@ -23,6 +23,10 @@ public class CommonUtil {
         doors.put("右后门",false);
     }
 
+    /**
+     * 打印车门信息
+     * @param door 车门值
+     */
     public static void printDoors(Integer door){
         int[] doors = decToBinArr(door);
         Map<String,Boolean> D = Redis.CAR_DOORS;

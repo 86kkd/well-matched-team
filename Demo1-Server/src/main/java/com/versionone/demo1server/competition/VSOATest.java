@@ -11,6 +11,9 @@ import static com.acoinfo.vsoa.Request.*;
 import static com.versionone.demo1server.statics.Redis.*;
 import static com.versionone.demo1server.utils.PayloadUtil.getSpeedPayload;
 
+/**
+ * VSOA测试类
+ */
 public class VSOATest {
 
     public static void main(String[] args) {

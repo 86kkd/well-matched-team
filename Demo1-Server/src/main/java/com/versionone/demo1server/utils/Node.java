@@ -2,6 +2,10 @@ package com.versionone.demo1server.utils;
 
 import java.util.Objects;
 
+/**
+ * 节点类
+ * @param <T>
+ */
 public class Node<T>{
     public T item;
     public Node<T> next ;

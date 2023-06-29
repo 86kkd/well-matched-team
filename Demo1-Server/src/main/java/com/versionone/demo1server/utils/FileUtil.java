@@ -4,6 +4,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
+/**
+ * 文件类
+ */
 public class FileUtil {
     /**
      * file转byte

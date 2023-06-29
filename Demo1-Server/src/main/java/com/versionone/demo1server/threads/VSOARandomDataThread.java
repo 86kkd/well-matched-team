@@ -5,6 +5,9 @@ import com.versionone.demo1server.statics.Redis;
 
 import java.util.Random;
 
+/**
+ * VSOA汽车平台随机发送数据线程
+ */
 public class VSOARandomDataThread extends java.lang.Thread{
     private final Random random = Redis.RANDOM;
     private final VSOACarService carService;

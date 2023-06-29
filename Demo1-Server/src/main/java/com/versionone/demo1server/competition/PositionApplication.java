@@ -5,6 +5,9 @@ import com.acoinfo.vsoa.Position;
 
 import java.net.InetSocketAddress;
 
+/**
+ * VSOA位置服务类
+ */
 public class PositionApplication {
     public static Position.PositionItem servers[] = {
             new Position.PositionItem("light_server", Constant.AF_INET, "127.0.0.1", 3001, false),

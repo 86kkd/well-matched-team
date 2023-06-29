@@ -1,5 +1,9 @@
 package com.versionone.demo1server.utils;
 
+/**
+ * 公共结果类
+ * @param <T> 需要返回对象的类
+ */
 public class CommonResult<T> {
 
     private long code;

@@ -68,6 +68,11 @@ public class FileController {
         }
     }
 
+    /**
+     * 视频接口
+     * @param request 请求对象
+     * @param response 响应对象
+     */
     @RequestMapping(value = {"/video1","/video2","/video3"} , method = RequestMethod.GET)
     public void playVideo(HttpServletRequest request, HttpServletResponse response){
         try {

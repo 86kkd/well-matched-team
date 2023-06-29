@@ -27,6 +27,9 @@ import com.versionone.demo1server.utils.Queue;
  * * 　　　　　　　　　　┗┻┛　┗┻┛+ + + +
  */
 
+/**
+ * 智能队列，也不管智能不智能，名字牛逼就对了
+ */
 public class IntelligentImageQueue {
 
     public static final Queue<byte[]> beforeQueue = new Queue<>();

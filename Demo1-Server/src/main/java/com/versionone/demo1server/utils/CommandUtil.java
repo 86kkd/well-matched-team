@@ -5,9 +5,10 @@ import com.versionone.demo1server.object.dto.File;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * 命令工具类
+ */
 public class CommandUtil {
-
-
 
     public static byte[] getImage(){
         return socket(File.pendingProcessingImg);

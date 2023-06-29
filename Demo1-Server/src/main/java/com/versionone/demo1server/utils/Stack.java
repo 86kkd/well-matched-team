@@ -3,6 +3,10 @@ package com.versionone.demo1server.utils;
 
 import java.util.Iterator;
 
+/**
+ * 自定义栈，链表栈
+ * @param <T>
+ */
 public class Stack<T> implements Iterable<T>{
     private final Node<T> head;
     private int N;

@@ -1,5 +1,8 @@
 package com.versionone.demo1server.utils;
 
+/**
+ * 返回结果
+ */
 public enum ResultCode implements IErrorCode {
 
     SUCCESS(200,"操作成功"),

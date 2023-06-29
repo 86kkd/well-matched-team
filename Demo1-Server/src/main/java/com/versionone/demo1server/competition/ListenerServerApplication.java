@@ -4,6 +4,9 @@ import com.acoinfo.vsoa.*;
 
 import java.net.InetSocketAddress;
 
+/**
+ * VSOA服务端类
+ */
 public class ListenerServerApplication {
     private  static String  SERVER_NAME   = "light_server";
     private  static String  SERVER_INFO   = "\"java language VSOA server\"";

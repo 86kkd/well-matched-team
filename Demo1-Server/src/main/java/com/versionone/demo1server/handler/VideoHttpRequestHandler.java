@@ -9,6 +9,9 @@ import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 视频处理类
+ */
 @Component
 public class VideoHttpRequestHandler extends ResourceHttpRequestHandler {
 
