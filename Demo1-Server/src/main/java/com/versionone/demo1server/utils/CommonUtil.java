@@ -1,5 +1,8 @@
 package com.versionone.demo1server.utils;
 
+import com.versionone.demo1server.statics.Redis;
+
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -7,6 +10,7 @@ import java.util.Map;
  */
 public class CommonUtil {
 
+    private static final Map<Integer,String> D_T = new HashMap<>();
 
     /**
      * 初始化车门信息
@@ -17,6 +21,15 @@ public class CommonUtil {
         doors.put("右前门",false);
         doors.put("左后门",false);
         doors.put("右后门",false);
+    }
+
+    public static void printDoors(Integer door){
+        int[] doors = decToBinArr(door);
+        Map<String,Boolean> D = Redis.CAR_DOORS;
+        for (int i = 0; i < doors.length; i++) {
+            D.put(D_T.get(i), doors[i] == 1 );
+        }
+        System.out.println(D);
     }
 
     /**
@@ -35,5 +48,16 @@ public class CommonUtil {
             bin[i] = stack.pop();
         }
         return bin;
+    }
+
+    public static void initDT(){
+        D_T.put(3,"左前门");
+        D_T.put(2,"右前门");
+        D_T.put(1,"左后门");
+        D_T.put(0,"右后门");
+    }
+
+    static {
+        initDT();
     }
 }
