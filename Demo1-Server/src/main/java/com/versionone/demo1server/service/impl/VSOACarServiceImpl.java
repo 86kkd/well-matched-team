@@ -12,6 +12,19 @@ import static com.versionone.demo1server.utils.PayloadUtil.*;
 
 @Service
 public class VSOACarServiceImpl implements VSOACarService {
+
+
+    @Override
+    public String setDoors(int doors) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.doorMatching(doors)){
+            return "车门值非法";
+        }
+        return sendRequest("/door",getDoorsPayload(doors));
+    }
+
     @Override
     public String getSpeed() {
         return sendRequest("/speed");

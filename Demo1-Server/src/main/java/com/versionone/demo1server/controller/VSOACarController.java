@@ -106,6 +106,21 @@ public class VSOACarController {
     }
 
     /**
+     * 设置汽车车门接口
+     * @param doors 车门值
+     * @return 信息
+     */
+    @RequestMapping(value = "/v_setDoors" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> setDoors(@RequestParam("value")int doors){
+        try {
+            return CommonResult.success(service.setDoors(doors));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
+
+    /**
      * 平台随机数据设置接口
      * @return 结果信息
      */

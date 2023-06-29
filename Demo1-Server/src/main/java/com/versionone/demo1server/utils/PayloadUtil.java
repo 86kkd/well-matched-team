@@ -24,7 +24,7 @@ public class PayloadUtil {
      * @param door 车门值
      * @return String
      */
-    public static String doorsPayload(int door){
+    private static String doorsPayload(int door){
         return "{\"door\":" +
                 door +
                 "}";

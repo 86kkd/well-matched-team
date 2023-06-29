@@ -5,6 +5,14 @@ package com.versionone.demo1server.service;
  */
 public interface VSOACarService {
 
+
+    /**
+     * 设置汽车车门
+     * @param doors 车门值
+     * @return 信息
+     */
+    String setDoors(int doors);
+
     /**
      * 获取汽车速度
      * @return 信息
