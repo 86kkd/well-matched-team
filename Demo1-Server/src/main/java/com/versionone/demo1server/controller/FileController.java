@@ -72,9 +72,7 @@ public class FileController {
     public void playVideo(HttpServletRequest request, HttpServletResponse response){
         try {
             videoHttpRequestHandler.handleRequest(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }

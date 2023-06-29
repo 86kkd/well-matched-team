@@ -8,6 +8,8 @@ import com.versionone.demo1server.service.VSOACarService;
 
 import java.util.*;
 
+import static com.versionone.demo1server.utils.CommonUtil.initCarDoors;
+
 /**
  * 简易的内存数据库
  */
@@ -17,14 +19,6 @@ public class Redis {
     public  static String  POS_ADDRESS   = "192.168.116.130";
     public  static int     POS_PORT      = 3000;
 
-    /*
-     *汽车信息表初始化
-     */
-    static {
-        cars = new LinkedList<>();
-        CAR_DOORS = new TreeMap<>();
-        RANDOM = new Random();
-    }
 
     /**
      * 随机数变量
@@ -80,5 +74,15 @@ public class Redis {
      */
     public static void setCars(List<Car> cars_){
         cars = cars_;
+    }
+
+    /*
+     *汽车信息表初始化
+     */
+    static {
+        cars = new LinkedList<>();
+        CAR_DOORS = new TreeMap<>();
+        RANDOM = new Random();
+        initCarDoors(CAR_DOORS);
     }
 }

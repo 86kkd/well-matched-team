@@ -1,9 +1,23 @@
 package com.versionone.demo1server.utils;
 
+import java.util.Map;
+
 /**
  * 常用工具类
  */
 public class CommonUtil {
+
+
+    /**
+     * 初始化车门信息
+     * @param doors 车门对象
+     */
+    public static void initCarDoors(Map<String,Boolean> doors){
+        doors.put("左前门",false);
+        doors.put("右前门",false);
+        doors.put("左后门",false);
+        doors.put("右后门",false);
+    }
 
     /**
      * 十进制数转二进制数组(四位)
