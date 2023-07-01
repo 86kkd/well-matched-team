@@ -58,8 +58,8 @@ class kitti(BaseDataset):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         depth = cv2.imread(gt_path, cv2.IMREAD_UNCHANGED).astype('float32')
         
-        image = self.cropping(image)
-        depth = self.cropping(depth)
+        # image = self.cropping(image)
+        # depth = self.cropping(depth)
 
         if self.scale_size:
             image = cv2.resize(image, (self.scale_size[0], self.scale_size[1]))

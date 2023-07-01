@@ -7,3 +7,6 @@ __pycache__/
 weights/
 logs/*
 .log/
+KITTI
+models
+dataset

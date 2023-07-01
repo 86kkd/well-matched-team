@@ -59,7 +59,7 @@ def main():
     if args.dataset == 'imagepath': # not for do_evaluate in case of imagepath
         dataset_kwargs = {'dataset_name': 'ImagePath', 'data_path': args.data_path}
     else:
-        dataset_kwargs = {'data_path': args.data_path, 'dataset_name': args.dataset,
+        dataset_kwargs = {'data_path': args.data_path, 'dataset_name': args.dataset,'scale_size':(640,384),
                           'is_train': False}
 
     test_dataset = get_dataset(**dataset_kwargs)
@@ -70,7 +70,6 @@ def main():
     for batch_idx, batch in enumerate(test_loader):
         input_RGB = batch['image'].to(device)
         filename = batch['filename']
-
         with torch.no_grad():
             if args.shift_window_test:
                 bs, _, h, w = input_RGB.shape
@@ -84,9 +83,11 @@ def main():
                     sliding_masks[..., :, i*interval:i*interval+h] += 1
                 input_RGB = torch.cat(sliding_images, dim=0)
             if args.flip_test:
+                # input_RGB_cpu = input_RGB.cpu().numpy()[0]
                 input_RGB = torch.cat((input_RGB, torch.flip(input_RGB, [3])), dim=0)
             pred = model(input_RGB)
         pred_d = pred['pred_d']
+        print("finish inference")
         if args.flip_test:
             batch_s = pred_d.shape[0]//2
             pred_d = (pred_d[:batch_s] + torch.flip(pred_d[batch_s:], [3]))/2.0
@@ -120,7 +121,7 @@ def main():
             
         if args.save_visualize:
             save_path = os.path.join(result_path, filename[0])
-            pred_d_numpy = pred_d.squeeze().cpu().numpy()
+            pred_d_numpy = pred_d.squeeze()
             pred_d_numpy = (pred_d_numpy / pred_d_numpy.max()) * 255
             pred_d_numpy = pred_d_numpy.astype(np.uint8)
             pred_d_color = cv2.applyColorMap(pred_d_numpy, cv2.COLORMAP_RAINBOW)
