@@ -32,6 +32,8 @@ import com.versionone.demo1server.utils.Queue;
  */
 public class IntelligentImageQueue {
 
+    public static boolean IS_TO_BE_PROCESSED;
+
     public static final Queue<byte[]> beforeQueue = new Queue<>();
 
     private static final Queue<byte[]> imageQueue = new Queue<>();
@@ -48,14 +50,27 @@ public class IntelligentImageQueue {
     private static class ImageProcessThread extends java.lang.Thread{
         @Override
         public void run() {
-            while (isContinue()){
-                byte[] res = CommandUtil.getImage(beforeQueue.dequeue());
-                entry(res);
+            while (IS_TO_BE_PROCESSED || isContinue()){
+                byte[] buf = getImgByte();
+                if (buf == null){
+                    continue;
+                }
+//                System.out.println(1);
+                byte[] res = CommandUtil.getImage(buf);
+//                System.out.println(2);
+                if (res!=null){
+                    entry(res);
+                }
+                System.out.println(111);
             }
         }
     }
 
-    public static boolean isContinue(){
+    private static byte[] getImgByte(){
+        return isContinue() ? beforeQueue.dequeue() : null;
+    }
+
+    private static boolean isContinue(){
         return !beforeQueue.isEmpty();
     }
 

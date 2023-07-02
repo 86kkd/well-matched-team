@@ -69,6 +69,16 @@ public class RuleMatch {
         return lightMatching(turnLight);                        // 规则一致，代码复用
     }
 
+
+    /**
+     * 指示灯规则匹配
+     * @param status 指示灯值
+     * @return 是否合法
+     */
+    public static boolean statusLightMatching(Integer status){
+        return status == 0 || status == 1;
+    }
+
     /**
      * 车门状态规则匹配
      * @param door 车门状态值
@@ -95,6 +105,15 @@ public class RuleMatch {
         1110
         1111
          */
+    }
+
+    /**
+     * 汽车胎压规则匹配
+     * @param value 胎压值
+     * @return 是否合法
+     */
+    public static boolean tirePressureMatching(double value){
+        return value>0 && value<=2.5;
     }
 
 }

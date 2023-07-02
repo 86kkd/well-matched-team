@@ -77,7 +77,6 @@ public class VSOACarServiceImpl implements VSOACarService {
         return sendRequest("/light",getLightPayload(light));
     }
 
-    //TODO
     @Override
     public String setGear(int gear) {
         if (!Redis.IS_CONNECTED){
@@ -87,6 +86,105 @@ public class VSOACarServiceImpl implements VSOACarService {
             return "挡位值非法";
         }
         return sendRequest("/gear",getGearPayload(gear));
+    }
+
+    @Override
+    public String setTurnlight(int turnlight) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.turnLightMatching(turnlight)){
+            return "转向灯灯光值非法";
+        }
+        return sendRequest("/turnlight",getTurnlightPayload(turnlight));
+    }
+
+    @Override
+    public String setAirbag(int airbag) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.statusLightMatching(airbag)){
+            return "安全气囊状态值非法";
+        }
+        return sendRequest("/airbag",getAirbagPayload(airbag));
+    }
+
+    @Override
+    public String setBrake(int brake) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.statusLightMatching(brake)){
+            return "刹车状态值非法";
+        }
+        return sendRequest("/brakingwaring",getBrakingPayload(brake));
+    }
+
+    @Override
+    public String setSeatbelt(int seatbelt) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.statusLightMatching(seatbelt)){
+            return "安全带状态值非法";
+        }
+        return sendRequest("/seatbeltwaring",getSeatbeltPayload(seatbelt));
+    }
+
+    @Override
+    public String setAbsStatus(int abs) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.statusLightMatching(abs)){
+            return "ABS状态值非法";
+        }
+        return sendRequest("/abswarning",getAbsWarningPayload(abs));
+    }
+
+    @Override
+    public String setLeftFrontTire(double lf) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.tirePressureMatching(lf)){
+            return "胎压值非法";
+        }
+        return sendRequest("/leftfronttire",getLeftFrontTirePayload(lf));
+    }
+
+    @Override
+    public String setRightFrontTire(double rf) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.tirePressureMatching(rf)){
+            return "胎压值非法";
+        }
+        return sendRequest("/rightfronttire",getRightFrontTirePayload(rf));
+    }
+
+    @Override
+    public String setLeftRearTire(double lr) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.tirePressureMatching(lr)){
+            return "胎压值非法";
+        }
+        return sendRequest("/leftreartire",getLeftRearTirePayload(lr));
+    }
+
+    @Override
+    public String setRightRearTire(double rr) {
+        if (!Redis.IS_CONNECTED){
+            return "中控平台未连接成功，请重新启动系统";
+        }
+        if (!RuleMatch.tirePressureMatching(rr)){
+            return "胎压值非法";
+        }
+        return sendRequest("/rightreartire",getRightRearTirePayload(rr));
     }
 
     private String sendRequest(String url){

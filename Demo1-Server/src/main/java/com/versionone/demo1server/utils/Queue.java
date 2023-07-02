@@ -3,7 +3,7 @@ package com.versionone.demo1server.utils;
 import java.util.Iterator;
 
 /**
- * 自定义队列，双链表队列
+ * 自定义队列，单链表队列
  * @param <T>
  */
 public class Queue<T> implements Iterable<T> {

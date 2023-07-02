@@ -76,6 +76,7 @@ public class ImageServiceImpl implements ImageService {
                 // 使用OpenCVFrameGrabber读取视频流
                 FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(inputStream);
                 grabber.start();
+                IntelligentImageQueue.IS_TO_BE_PROCESSED = true;                         //开始处理图片
                 int i = 0;
                 // 遍历视频帧
                 while (true) {
@@ -100,7 +101,7 @@ public class ImageServiceImpl implements ImageService {
                         i++;
                     }
                 }
-
+                IntelligentImageQueue.IS_TO_BE_PROCESSED = false;                     //图片处理完成
                 grabber.stop();
                 System.out.println("grabber.stop();");
             } catch (IOException e) {
