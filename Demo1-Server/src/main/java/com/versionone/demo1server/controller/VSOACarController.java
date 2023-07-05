@@ -132,4 +132,36 @@ public class VSOACarController {
         return CommonResult.success("111");
     }
 
+    /**
+     * 设置汽车转向灯
+     * @param light 转向灯值
+     * @return 信息
+     */
+    @RequestMapping(value = "/v_setTurnlight" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> setTurnlight(@RequestParam("value")int light){
+        try {
+            return CommonResult.success(service.setTurnlight(light));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
+
+    /**
+     * 设置汽车安全气囊
+     * @param airbag 安全气囊值
+     * @return 信息
+     */
+    @RequestMapping(value = "/v_setAirbag" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> setAirbag(@RequestParam("value") int airbag){
+        try {
+            return CommonResult.success(service.setAirbag(airbag));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
+
+
+
 }
