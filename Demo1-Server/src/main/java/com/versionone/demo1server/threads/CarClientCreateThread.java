@@ -25,4 +25,6 @@ public class CarClientCreateThread extends java.lang.Thread {
         System.out.println("qqqq");
         Redis.IS_CONNECTED = true;
     }
+
+
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lib/rfb.js"></script>
+</head>
+<body>
+    <canvas id="vncCanvas"></canvas>
+</body>
+<script>
+
+    const canvas = document.getElementById('vncCanvas');
+    const rfb = new RFB(canvas, `ws://${window.location.hostname}:4567/vnc`);
+</script>
+</html>

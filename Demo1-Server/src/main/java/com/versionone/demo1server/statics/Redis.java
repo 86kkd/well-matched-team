@@ -25,6 +25,8 @@ public class Redis {
      */
     public static final Random RANDOM ;
 
+    public static int currentSpeed = 0 ;
+
     public static final Map<String,Boolean> CAR_DOORS;
 
     public static final Client CAR_CLIENT = new Client(new ClientOption(PASSWORD, 6000, 4000, 3, false));

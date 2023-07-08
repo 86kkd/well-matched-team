@@ -38,6 +38,21 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!RuleMatch.speedMatching(speed)){
             return "速度值非法";
         }
+
+        int before = Redis.currentSpeed;
+        int dec = Redis.currentSpeed - speed;
+        for (int i = 0; i < 25; i++) {
+            before -= dec/25 ;
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            sendRequest("/speed",getSpeedPayload(before));
+        }
+
+        Redis.currentSpeed = speed;
+        sendRequest("/speed",getSpeedPayload(speed));
         return sendRequest("/speed",getSpeedPayload(speed));
     }
 

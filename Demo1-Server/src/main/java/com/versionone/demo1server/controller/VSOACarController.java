@@ -207,4 +207,17 @@ public class VSOACarController {
         }
     }
 
+    /**
+     * 设置左前汽车胎压
+     * @param lf 左前轮胎胎压值
+     * @return 信息
+     */
+    public CommonResult<String> setLeftFrontTire(@RequestParam("value") double lf){
+        try {
+            return CommonResult.success(service.setLeftFrontTire(lf));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
+
 }
