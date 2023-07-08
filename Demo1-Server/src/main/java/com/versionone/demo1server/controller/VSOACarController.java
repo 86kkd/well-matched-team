@@ -162,6 +162,49 @@ public class VSOACarController {
         }
     }
 
+    /**
+     * 设置汽车刹车（紧急制动）
+     * @param brake 刹车状态值
+     * @return 信息
+     */
+    @RequestMapping(value = "/v_setBrake" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> setBrake(@RequestParam("value") int brake){
+        try {
+            return CommonResult.success(service.setBrake(brake));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
 
+    /**
+     * 设置汽车安全带指示灯接口
+     * @param seatbelt 汽车安全带状态
+     * @return 信息
+     */
+    @RequestMapping(value = "/v_setSeatbelt",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> setSeatbelt(@RequestParam("value") int seatbelt){
+        try {
+            return CommonResult.success(service.setSeatbelt(seatbelt));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
+
+    /**
+     * 设置汽车ABS指示灯接口
+     * @param status ABS状态
+     * @return 信息
+     */
+    @RequestMapping(value = "v_setAbsStatus" , method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> setAbsStatus(@RequestParam("value") int status){
+        try {
+            return CommonResult.success(service.setAbsStatus(status));
+        } catch (Exception e) {
+            return CommonResult.failed("未知错误");
+        }
+    }
 
 }
