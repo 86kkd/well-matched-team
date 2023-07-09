@@ -18,6 +18,7 @@ import utils.metrics as metrics
 from models.model import GLPDepth
 from dataset.base_dataset import get_dataset
 from configs.test_options import TestOptions
+from visionUtils.utils.utils import time_synchronized
 
 
 metric_name = ['d1', 'd2', 'd3', 'abs_rel', 'sq_rel', 'rmse', 'rmse_log',
@@ -85,7 +86,10 @@ def main():
             if args.flip_test:
                 # input_RGB_cpu = input_RGB.cpu().numpy()[0]
                 input_RGB = torch.cat((input_RGB, torch.flip(input_RGB, [3])), dim=0)
+            t1 = time_synchronized()
             pred = model(input_RGB)
+            t2 = time_synchronized()
+            print(f"**************{t2-t1:.3f}s/frame")
         pred_d = pred['pred_d']
         print("finish inference")
         if args.flip_test:

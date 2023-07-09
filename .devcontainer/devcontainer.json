@@ -3,7 +3,7 @@
 {
 	"name": "DEPTH",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "uniad:latest",
+	"image": "well-matched:cuda11.8",
 	"runArgs": ["--gpus", "all"],
 	"customizations": {
 		"vscode": {

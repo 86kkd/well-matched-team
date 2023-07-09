@@ -14,9 +14,9 @@ class TestOptions(BaseOptions):
                             default='./ckpt/kitti_swin_base.ckpt', 
                             help='load ckpt path')
         
-        parser.add_argument('--save_eval_pngs', action='store_false',
+        parser.add_argument('--save_eval_pngs', action='store_true',
                             help='save result image into evaluation form')
-        parser.add_argument('--save_visualize', action='store_false',
+        parser.add_argument('--save_visualize', action='store_true',
                             help='save result image into visulized form')
         parser.add_argument('--do_evaluate',    action='store_true',
                             help='evaluate with inferenced images')   

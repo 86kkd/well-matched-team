@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 # from openvino.runtime import Core
 
 # Conclude setting / general reprocessing / plots / metrices / datasets
-from utils.utils import \
+from visionUtils.utils.utils import \
     time_synchronized, select_device, non_max_suppression_without_ancher, \
     scale_coords, non_max_suppression, split_for_trace_model, \
     driving_area_mask, lane_line_mask, plot_one_box, show_seg_result, \
@@ -61,19 +61,19 @@ class detectModel():
             img = img.unsqueeze(0)
 
         # Inference
-        with torch.inference_mode():
-            t1 = time_synchronized()
-            [pred, anchor_grid], seg, ll = self.model(img)
-            t2 = time_synchronized()
+   
+        t1 = time_synchronized()
+        [pred, anchor_grid], seg, ll = self.model(img)
+        t2 = time_synchronized()
 
-        tw1 = time_synchronized()
+        # tw1 = time_synchronized()
         pred = split_for_trace_model(pred, anchor_grid)
-        tw2 = time_synchronized()
+        # tw2 = time_synchronized()
 
         # Apply NMS
-        t3 = time_synchronized()
+        # t3 = time_synchronized()
         pred = non_max_suppression_without_ancher(pred, conf_thres=0.5, iou_thres=0.5, classes=None, agnostic=False)
-        t4 = time_synchronized()
+        # t4 = time_synchronized()
 
         da_seg_mask = driving_area_mask(seg)
         ll_seg_mask = lane_line_mask(ll)
@@ -88,13 +88,21 @@ class detectModel():
             for *xyxy, conf, cls in reversed(det):
                 plot_one_box(xyxy, img0, line_thickness=3)
             # Print time (inference)
-            print(f'{s}Done. ({t2 - t1:.3f}s)')
+            # print(f'{s}Done. ({t2 - t1:.3f}s)')
             show_seg_result(img0, (da_seg_mask, ll_seg_mask), is_demo=True)
         inf_time.update(t2 - t1, img.size(0))
-        nms_time.update(t4 - t3, img.size(0))
-        waste_time.update(tw2 - tw1, img.size(0))
-        print('inf : (%.4fs/frame)   nms : (%.4fs/frame)' % (inf_time.avg, nms_time.avg))
-        return img0
+        # nms_time.update(t4 - t3, img.size(0))
+        # waste_time.update(tw2 - tw1, img.size(0))
+        print(f"\033[94m—————————————————lane inf:{inf_time.avg:.4f}s/frame—————————————————\033[0m")
+        # 对列表中的每个张量进行处理
+        pred_cpu = [t.cpu() for t in pred]
+        anchor_grid_cpu = [t.cpu() for t in anchor_grid]
+
+        # 对单个张量进行处理
+        seg_cpu = seg.cpu()
+        ll_cpu = ll.cpu()
+        # return img0, [pred_cpu, anchor_grid_cpu], seg_cpu, ll_cpu 
+        return 
 
 
 class vinoModel():

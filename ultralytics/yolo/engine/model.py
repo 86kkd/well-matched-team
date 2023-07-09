@@ -250,7 +250,8 @@ class YOLO:
             self.predictor.setup_model(model=self.model, verbose=is_cli)
         else:  # only update args if predictor is already setup
             self.predictor.args = get_cfg(self.predictor.args, overrides)
-        return self.predictor.predict_cli(source=source) if is_cli else self.predictor(source=source, stream=stream)
+        result = self.predictor.predict_cli(source=source) if is_cli else self.predictor(source=source, stream=stream)
+        return result[0].cpu()
 
     def track(self, source=None, stream=False, persist=False, **kwargs):
         """
