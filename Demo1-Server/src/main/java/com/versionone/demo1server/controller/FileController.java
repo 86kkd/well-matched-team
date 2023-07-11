@@ -112,20 +112,40 @@ public class FileController {
      * @param request 请求对象
      * @param response 响应对象
      */
-    @RequestMapping(value = {"/video1"} , method = RequestMethod.GET)
-    @ResponseBody
-    public FileSystemResource playVideo1(HttpServletRequest request, HttpServletResponse response){
-        return new FileSystemResource(new File("./output.mp4"));
+    @RequestMapping(value = "/video1" , method = RequestMethod.GET)
+    public void playVideo1(HttpServletRequest request, HttpServletResponse response){
+        Redis.FILE_NAME = "output.mp4";
+        try {
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @RequestMapping(value = {"/video2"} , method = RequestMethod.GET)
+    @RequestMapping(value = "/video2" , method = RequestMethod.GET)
     public void playVideo2(HttpServletRequest request, HttpServletResponse response){
-//        player("bired.mp4",response);
+        Redis.FILE_NAME = "bired.mp4";
+        try {
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @RequestMapping(value = {"/video3"} , method = RequestMethod.GET)
+    @RequestMapping(value = "/video3" , method = RequestMethod.GET)
     public void playVideo3(HttpServletRequest request, HttpServletResponse response){
-//        player("depth.mp4",response);
+        Redis.FILE_NAME = "depth.mp4";
+        try {
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*private void player(String url, HttpServletResponse response){
