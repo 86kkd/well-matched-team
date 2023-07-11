@@ -3,6 +3,7 @@ package com.versionone.demo1server.controller;
 import com.versionone.demo1server.handler.VideoHttpRequestHandler;
 import com.versionone.demo1server.service.FileService;
 import com.versionone.demo1server.service.ImageService;
+import com.versionone.demo1server.statics.Redis;
 import com.versionone.demo1server.utils.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,9 +109,30 @@ public class FileController {
      * @param request 请求对象
      * @param response 响应对象
      */
-    @RequestMapping(value = {"/video1","/video2","/video3"} , method = RequestMethod.GET)
-    public void playVideo(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = {"/video1"} , method = RequestMethod.GET)
+    public void playVideo1(HttpServletRequest request, HttpServletResponse response){
         try {
+            Redis.FILE_NAME = "bired.mp4";
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = {"/video2"} , method = RequestMethod.GET)
+    public void playVideo2(HttpServletRequest request, HttpServletResponse response){
+        try {
+            Redis.FILE_NAME = "output.mp4";
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = {"/video3"} , method = RequestMethod.GET)
+    public void playVideo3(HttpServletRequest request, HttpServletResponse response){
+        try {
+            Redis.FILE_NAME = "depth.mp4";
             videoHttpRequestHandler.handleRequest(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();

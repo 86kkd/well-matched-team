@@ -1,6 +1,7 @@
 package com.versionone.demo1server.handler;
 
 import com.versionone.demo1server.object.dto.File;
+import com.versionone.demo1server.statics.Redis;
 import com.versionone.demo1server.utils.FileUtil;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;

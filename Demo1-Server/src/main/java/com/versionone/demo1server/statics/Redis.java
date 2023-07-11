@@ -31,6 +31,8 @@ public class Redis {
 
     public static final Client CAR_CLIENT = new Client(new ClientOption(PASSWORD, 6000, 4000, 3, false));
 
+    public static String FILE_NAME;
+
     public static  Boolean IS_CONNECTED = Boolean.FALSE;
 
     public static VSOACarService vsoaCarService;

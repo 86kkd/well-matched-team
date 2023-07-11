@@ -41,8 +41,8 @@ public class VSOACarServiceImpl implements VSOACarService {
 
         int before = Redis.currentSpeed;
         int dec = Redis.currentSpeed - speed;
-        for (int i = 0; i < 25; i++) {
-            before -= dec/25 ;
+        for (int i = 0; i < 8; i++) {
+            before -= dec/8 ;
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
