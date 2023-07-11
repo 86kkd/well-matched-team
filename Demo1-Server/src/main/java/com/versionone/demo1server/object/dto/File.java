@@ -11,4 +11,12 @@ public class File {
 
     public static byte[] pendingProcessingImg;
 
+
+
+    public static byte[] v1;
+    public static String v1_n;
+    public static byte[] v2;
+    public static String v2_n;
+    public static byte[] v3;
+    public static String v3_n;
 }

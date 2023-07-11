@@ -5,7 +5,9 @@ import com.versionone.demo1server.service.FileService;
 import com.versionone.demo1server.service.ImageService;
 import com.versionone.demo1server.statics.Redis;
 import com.versionone.demo1server.utils.CommonResult;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * 文件相关接口
@@ -73,14 +75,15 @@ public class FileController {
      * @param video 视频二进制流
      * @return 相关信息
      */
-    @RequestMapping(value = "/uploadVideo" , method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadVideo/{id}" , method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<String> videoFileUp(@RequestPart("file")MultipartFile  video){
+    public CommonResult<String> videoFileUp(@RequestPart("file") MultipartFile video, @PathVariable int id){
+
         if (video.isEmpty()) {
             return CommonResult.failed("上传文件为空");
         }
         try {
-            fileService.saveVideoTo_RAM(video);
+            fileService.saveVideoTo_RAM(video,id);
         } catch (IOException e) {
             e.printStackTrace();
             return CommonResult.failed("文件上传失败");
@@ -93,11 +96,11 @@ public class FileController {
      * @param response 响应体对象
      * @return 结果
      */
-    @RequestMapping(value = "/downloadVideo" , method = RequestMethod.GET)
+    @RequestMapping(value = "/downloadVideo/{id}" , method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<String> videoFileDownload(HttpServletResponse response){
+    public CommonResult<String> videoFileDownload(HttpServletResponse response, @PathVariable int id){
         try {
-            return fileService.outputVideo(response) ? CommonResult.success("下载成功") : CommonResult.failed();
+            return fileService.outputVideo(response,id) ? CommonResult.success("下载成功") : CommonResult.failed();
         } catch (IOException e) {
             e.printStackTrace();
             return CommonResult.failed();
@@ -110,32 +113,41 @@ public class FileController {
      * @param response 响应对象
      */
     @RequestMapping(value = {"/video1"} , method = RequestMethod.GET)
-    public void playVideo1(HttpServletRequest request, HttpServletResponse response){
-        try {
-            Redis.FILE_NAME = "bired.mp4";
-            videoHttpRequestHandler.handleRequest(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+    @ResponseBody
+    public FileSystemResource playVideo1(HttpServletRequest request, HttpServletResponse response){
+        return new FileSystemResource(new File("./output.mp4"));
     }
 
     @RequestMapping(value = {"/video2"} , method = RequestMethod.GET)
     public void playVideo2(HttpServletRequest request, HttpServletResponse response){
-        try {
-            Redis.FILE_NAME = "output.mp4";
-            videoHttpRequestHandler.handleRequest(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+//        player("bired.mp4",response);
     }
 
     @RequestMapping(value = {"/video3"} , method = RequestMethod.GET)
     public void playVideo3(HttpServletRequest request, HttpServletResponse response){
-        try {
-            Redis.FILE_NAME = "depth.mp4";
-            videoHttpRequestHandler.handleRequest(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+//        player("depth.mp4",response);
     }
+
+    /*private void player(String url, HttpServletResponse response){
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            response.setContentType("video/mp4");
+            File file = new File("./" + url);
+            response.addHeader("Content-Length", "" + file.length());
+            is = new FileInputStream(file);
+            os = response.getOutputStream();
+            IOUtils.copy(is, os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != os) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }*/
 }

@@ -10,9 +10,9 @@ import java.io.IOException;
  */
 public interface FileService {
 
-    void saveVideoTo_RAM(MultipartFile video) throws IOException;
+    void saveVideoTo_RAM(MultipartFile video , int id) throws IOException;
 
-    boolean outputVideo(HttpServletResponse response) throws IOException;
+    boolean outputVideo(HttpServletResponse response , int id) throws IOException;
 
     void saveImageTo_RAM(MultipartFile png) throws IOException;
 }
