@@ -19,7 +19,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.doorMatching(doors)){
+        if (RuleMatch.doorMatching(doors)){
             return "车门值非法";
         }
         return sendRequest("/door",getDoorsPayload(doors));
@@ -86,7 +86,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.lightMatching(light)){
+        if (RuleMatch.lightMatching(light)){
             return "灯光值非法";
         }
         return sendRequest("/light",getLightPayload(light));
@@ -97,7 +97,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.gearMatching(gear)){
+        if (RuleMatch.gearMatching(gear)){
             return "挡位值非法";
         }
         return sendRequest("/gear",getGearPayload(gear));
@@ -108,7 +108,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.turnLightMatching(turnlight)){
+        if (RuleMatch.turnLightMatching(turnlight)){
             return "转向灯灯光值非法";
         }
         return sendRequest("/turnlight",getTurnlightPayload(turnlight));
@@ -119,7 +119,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.statusLightMatching(airbag)){
+        if (RuleMatch.statusLightMatching(airbag)){
             return "安全气囊状态值非法";
         }
         return sendRequest("/airbag",getAirbagPayload(airbag));
@@ -130,7 +130,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.statusLightMatching(brake)){
+        if (RuleMatch.statusLightMatching(brake)){
             return "刹车状态值非法";
         }
         return sendRequest("/brakingwaring",getBrakingPayload(brake));
@@ -141,7 +141,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.statusLightMatching(seatbelt)){
+        if (RuleMatch.statusLightMatching(seatbelt)){
             return "安全带状态值非法";
         }
         return sendRequest("/seatbeltwaring",getSeatbeltPayload(seatbelt));
@@ -152,7 +152,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.statusLightMatching(abs)){
+        if (RuleMatch.statusLightMatching(abs)){
             return "ABS状态值非法";
         }
         return sendRequest("/abswarning",getAbsWarningPayload(abs));
@@ -163,7 +163,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.tirePressureMatching(lf)){
+        if (RuleMatch.tirePressureMatching(lf)){
             return "胎压值非法";
         }
         return sendRequest("/leftfronttire",getLeftFrontTirePayload(lf));
@@ -174,7 +174,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.tirePressureMatching(rf)){
+        if (RuleMatch.tirePressureMatching(rf)){
             return "胎压值非法";
         }
         return sendRequest("/rightfronttire",getRightFrontTirePayload(rf));
@@ -185,7 +185,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.tirePressureMatching(lr)){
+        if (RuleMatch.tirePressureMatching(lr)){
             return "胎压值非法";
         }
         return sendRequest("/leftreartire",getLeftRearTirePayload(lr));
@@ -196,7 +196,7 @@ public class VSOACarServiceImpl implements VSOACarService {
         if (!Redis.IS_CONNECTED){
             return "中控平台未连接成功，请重新启动系统";
         }
-        if (!RuleMatch.tirePressureMatching(rr)){
+        if (RuleMatch.tirePressureMatching(rr)){
             return "胎压值非法";
         }
         return sendRequest("/rightreartire",getRightRearTirePayload(rr));

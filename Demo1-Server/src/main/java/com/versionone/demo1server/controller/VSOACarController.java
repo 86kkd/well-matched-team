@@ -212,8 +212,13 @@ public class VSOACarController {
      * @param lf 左前轮胎胎压值
      * @return 信息
      */
+    @RequestMapping(value = "/v_setTire" , method = RequestMethod.GET)
+    @ResponseBody
     public CommonResult<String> setLeftFrontTire(@RequestParam("value") double lf){
         try {
+            service.setLeftRearTire(lf);
+            service.setRightFrontTire(lf);
+            service.setRightRearTire(lf);
             return CommonResult.success(service.setLeftFrontTire(lf));
         } catch (Exception e) {
             return CommonResult.failed("未知错误");

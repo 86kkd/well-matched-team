@@ -7,6 +7,7 @@ package com.versionone.demo1server.threads;
 public class BootList {
     static {
         CarInfoReaderThread.start();
+        SocketClientBoot.start();
     }
 
     /**

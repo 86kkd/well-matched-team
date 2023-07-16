@@ -102,7 +102,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
      */
     @Override
     public Car shiftSwitching(Integer id, Integer gear) {
-        if (!RuleMatch.gearMatching(gear)){ //挡位不合法
+        if (RuleMatch.gearMatching(gear)){ //挡位不合法
             return null;
         }
         Car car = getCarById(id);
@@ -120,7 +120,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
      */
     @Override
     public Car shiftLight(Integer id, Integer light) {
-        if (!RuleMatch.lightMatching(light)){
+        if (RuleMatch.lightMatching(light)){
             return null;
         }
         Car car = getCarById(id);
@@ -136,7 +136,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
      */
     @Override
     public Car shiftTurnLight(Integer id, Integer turnLight) {
-        if (!RuleMatch.turnLightMatching(turnLight)){
+        if (RuleMatch.turnLightMatching(turnLight)){
             return null;
         }
         Car car = getCarById(id);
@@ -152,7 +152,7 @@ public class CarServiceImpl extends ServiceImpl<CarMapper, Car> implements CarSe
      */
     @Override
     public Car shiftDoor(Integer id, Integer door) {
-        if (!RuleMatch.doorMatching(door)){
+        if (RuleMatch.doorMatching(door)){
             return null;
         }
         Car car = getCarById(id);

@@ -4,7 +4,9 @@ import com.acoinfo.vsoa.Client;
 import com.acoinfo.vsoa.ClientOption;
 import com.versionone.demo1server.mapper.CarMapper;
 import com.versionone.demo1server.object.entity.Car;
+import com.versionone.demo1server.object.vo.ResultObject;
 import com.versionone.demo1server.service.VSOACarService;
+import com.versionone.demo1server.utils.Queue;
 
 import java.util.*;
 
@@ -26,6 +28,10 @@ public class Redis {
     public static final Random RANDOM ;
 
     public static int currentSpeed = 0 ;
+
+    public static final Queue<ResultObject> RESULT_OBJECT_QUEUE = new Queue<>();
+
+    public static final Queue<String> STRING_QUEUE = new Queue<>();
 
     public static final Map<String,Boolean> CAR_DOORS;
 

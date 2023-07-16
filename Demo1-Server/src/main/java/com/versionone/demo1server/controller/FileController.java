@@ -148,6 +148,18 @@ public class FileController {
         }
     }
 
+    @RequestMapping(value = "/video4" , method = RequestMethod.GET)
+    public void playVideo4(HttpServletRequest request, HttpServletResponse response){
+        Redis.FILE_NAME = "orgin.mp4";
+        try {
+            videoHttpRequestHandler.handleRequest(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*private void player(String url, HttpServletResponse response){
         InputStream is = null;
         OutputStream os = null;

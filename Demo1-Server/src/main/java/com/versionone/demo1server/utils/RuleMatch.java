@@ -18,9 +18,9 @@ public class RuleMatch {
             case 3:
             case 4:
             case 5:
-                return true;
-            default:
                 return false;
+            default:
+                return true;
         }
     }
 
@@ -54,9 +54,9 @@ public class RuleMatch {
             case 2:
             case 4:
             case 8:
-                return true;
-            default:
                 return false;
+            default:
+                return true;
         }
     }
 
@@ -66,7 +66,7 @@ public class RuleMatch {
      * @return 是否合法
      */
     public static boolean turnLightMatching(Integer turnLight){
-        return lightMatching(turnLight);                        // 规则一致，代码复用
+        return turnLight < 0 || turnLight > 3;
     }
 
 
@@ -76,7 +76,7 @@ public class RuleMatch {
      * @return 是否合法
      */
     public static boolean statusLightMatching(Integer status){
-        return status == 0 || status == 1;
+        return status != 0 && status != 1;
     }
 
     /**
@@ -85,7 +85,7 @@ public class RuleMatch {
      * @return 是否合法
      */
     public static boolean doorMatching(Integer door){
-        return door>=0 && door <=15;
+        return door < 0 || door > 15;
         /*
         一共16种车门状态
         0000
@@ -113,7 +113,7 @@ public class RuleMatch {
      * @return 是否合法
      */
     public static boolean tirePressureMatching(double value){
-        return value>0 && value<=2.5;
+        return !(value > 0) || !(value <= 2.5);
     }
 
 }

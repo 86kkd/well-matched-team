@@ -1,11 +1,13 @@
 package com.versionone.demo1server.controller;
 
 import com.versionone.demo1server.service.ImageService;
+import com.versionone.demo1server.statics.Redis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -47,5 +49,10 @@ public class ImageController {
 
     }
 
+    @RequestMapping(value = "/newImg",method = RequestMethod.GET)
+    @ResponseBody
+    public String getNewImg(){
+        return Redis.STRING_QUEUE.dequeue();
+    }
 
 }
