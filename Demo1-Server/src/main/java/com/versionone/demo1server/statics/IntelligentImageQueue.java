@@ -38,6 +38,8 @@ public class IntelligentImageQueue {
 
     private static final Queue<byte[]> imageQueue = new Queue<>();
 
+    private static byte[] temp ;
+
     private static byte[] bufImg = null;
 
     public static void start(){
@@ -55,6 +57,7 @@ public class IntelligentImageQueue {
                 if (buf == null){
                     continue;
                 }
+                temp = buf;
 //                System.out.println(1);
                 byte[] res = CommandUtil.getImage(buf);
 //                System.out.println(2);
@@ -79,13 +82,8 @@ public class IntelligentImageQueue {
      * @return 图片字节流
      */
     public static byte[] getNewImg(){
-        if (imageQueue.size()<=1){
-            return bufImg;
-        }
 
-        bufImg = imageQueue.dequeue();
-
-        return bufImg;
+        return temp;
     }
 
     /**

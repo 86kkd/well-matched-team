@@ -1,5 +1,6 @@
 package com.versionone.demo1server.controller;
 
+import com.versionone.StaticString;
 import com.versionone.demo1server.service.ImageService;
 import com.versionone.demo1server.statics.Redis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class ImageController {
      * 获取随机图片接口
      */
     @RequestMapping(value = "/getLatestImage-test" , method = RequestMethod.GET ,produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseBody
     public void imageDown(HttpServletResponse response){
 
         try {
@@ -53,6 +55,7 @@ public class ImageController {
     @ResponseBody
     public String getNewImg(){
         return Redis.STRING_QUEUE.dequeue();
+//        return StaticString.__.toString();
     }
 
 }

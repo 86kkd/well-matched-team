@@ -25,6 +25,8 @@ public class FileServiceImpl implements FileService {
         if (id == 1){
             File.nowVideoFile = video.getBytes();
             File.nowVideoFilename = video.getOriginalFilename();
+            int lastDotIndex = File.nowVideoFilename.lastIndexOf('.');
+            File.extendName = File.nowVideoFilename.substring(lastDotIndex + 1);
         }else if (id == 2){
             File.v1 = video.getBytes();
             File.v1_n = video.getOriginalFilename();

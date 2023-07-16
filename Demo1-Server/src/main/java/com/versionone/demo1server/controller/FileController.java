@@ -84,6 +84,7 @@ public class FileController {
         }
         try {
             fileService.saveVideoTo_RAM(video,id);
+            imageService.videoToImages();
         } catch (IOException e) {
             e.printStackTrace();
             return CommonResult.failed("文件上传失败");

@@ -8,7 +8,7 @@ public class File {
 
     public static byte[] nowVideoFile; //存储在内存的视频文件
     public static String nowVideoFilename; //文件名
-
+    public static String extendName; //文件拓展名
     public static byte[] pendingProcessingImg;
 
 

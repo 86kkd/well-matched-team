@@ -31,15 +31,21 @@ import com.versionone.demo1server.utils.Queue;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameConverter;
+import org.bytedeco.opencv.opencv_core.Mat;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * 图片事务
@@ -55,6 +61,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void getNewImage(HttpServletResponse response) throws IOException{
         byte[] bytes = getOne();
+//        System.out.println(Arrays.toString(bytes));
         response.setContentType("image/png");
         ServletOutputStream outputStream = response.getOutputStream();
         outputStream.write(bytes);
@@ -85,13 +92,21 @@ public class ImageServiceImpl implements ImageService {
                         break;
                     }
 
+                    // 将当前帧转为Mat对象
+                    OpenCVFrameConverter.ToMat converter = new OpenCVFrameConverter.ToMat();
+                    Mat mat = converter.convert(frame);
+
                     // 将当前帧转为bufferedImage
-                    Java2DFrameConverter converter = new Java2DFrameConverter();
-                    BufferedImage bufferedImage = converter.convert(frame);
+                    Java2DFrameConverter converter2D = new Java2DFrameConverter();
+                    BufferedImage bufferedImage = converter2D.convert(frame);
+                    System.out.println(File.extendName);
+                    // 旋转图像
+                    BufferedImage rotatedImage = rotateImage(bufferedImage, "mp4".equals(File.extendName) ? 0 : 270 ); // 旋转90度
+
 
                     // 将bufferedImage转为byte数组
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+                    ImageIO.write(rotatedImage, "jpg", byteArrayOutputStream);
                     byte[] imageBytes = byteArrayOutputStream.toByteArray();
                     System.out.print("*");
                     // 对imageBytes进一步处理
@@ -108,6 +123,28 @@ public class ImageServiceImpl implements ImageService {
                 e.printStackTrace();
             }
         }
+    }
+
+    // 旋转图像方法
+    private static BufferedImage rotateImage(BufferedImage image, double degrees) {
+        double radians = Math.toRadians(degrees);
+        int width = image.getWidth();
+        int height = image.getHeight();
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+        int newWidth = (int) Math.floor(width * cos + height * sin);
+        int newHeight = (int) Math.floor(height * cos + width * sin);
+
+        BufferedImage rotatedImage = new BufferedImage(newWidth, newHeight, image.getType());
+        Graphics2D g2d = rotatedImage.createGraphics();
+        AffineTransform transform = new AffineTransform();
+        transform.translate((newWidth - width) / 2, (newHeight - height) / 2);
+        transform.rotate(radians, width / 2, height / 2);
+        g2d.setTransform(transform);
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+
+        return rotatedImage;
     }
 
     @Override
