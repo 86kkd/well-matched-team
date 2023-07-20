@@ -6,7 +6,6 @@ import math
 import time
 import random
 from PIL import Image
-from openvino.runtime import Core
 import matplotlib.pyplot as plt
 
 import torchvision.transforms as transforms

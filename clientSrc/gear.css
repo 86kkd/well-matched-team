@@ -1,0 +1,46 @@
+.gears{
+  position: relative;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    flex-direction: row;
+    /* background-color: #fff; */
+    left: 40%;
+    top: 4%;
+}
+.gears .exect {
+    flex-basis: 0px;
+    flex-grow: 1;
+    
+    /* display: flex; */
+    /* align-items: center; */
+    /* background-color: pink; */
+    color: #000;
+    position: relative;
+    margin-right: 50px;
+  }
+  
+ .exect:before {
+    color: #fff;
+    content: '';
+    position: absolute;
+    left: -10px;
+    /* 调整圆圈的左侧距离 */
+    top: -10%;
+    /* transform: translate(%,-50%); */
+    width: 30px;
+    height: 30px;
+    border: 2px solid lightblue;
+    /* background-color: pink; */
+    border-radius: 50%;
+  
+  }
+  
+ .active:before{
+    border-radius: 50%;
+    background-color: rgba(25, 251, 251, 0.736);
+ }
+ .active{
+  position: absolute;
+  top: 10px;
+ }

@@ -61,16 +61,28 @@ def time_synchronized():
         torch.cuda.synchronize()
     return time.time()
 
-def plot_one_box(x, img, color=None, label=None, line_thickness=3):
+def plot_one_box(x, depth, img, color=None, label=None, line_thickness=3):
     # Plots one bounding box on image img
-    tl = line_thickness or round(0.002 * (img.shape[0] + img.shape[1]) / 2) + 1  # line/font thickness
-    color = color or [random.randint(0, 255) for _ in range(3)]
-    c1, c2 = (int(x[0]), int(x[1])), (int(x[2]), int(x[3]))
-    cv2.rectangle(img, c1, c2, [0,255,255], thickness=2, lineType=cv2.LINE_AA)
-    if label:
-        tf = max(tl - 1, 1)  # font thickness
-        t_size = cv2.getTextSize(label, 0, fontScale=tl / 3, thickness=tf)[0]
-        c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
+    x = [x.numpy() for x in x]
+    mid_x = int(round((x[0] + x[2]) / 2)/4)
+    mid_y = int(round((x[1] + x[3]) / 2)/4)
+    depth = depth[mid_y-1,mid_x-1]
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 0.8
+    font_thickness = 1
+    if not np.isnan(depth):
+        label = f"d:{int(depth)}"
+        tl = line_thickness or round(0.002 * (img.shape[0] + img.shape[1]) / 2) + 1  # line/font thickness
+        color = color or [random.randint(0, 255) for _ in range(3)]
+        c1, c2 = (int(x[0]), int(x[1])), (int(x[2]), int(x[3]))
+        text_offset_x = c1[0]
+        text_offset_y = c1[1] - 5
+        cv2.rectangle(img, c1, c2, [0,255,255], thickness=2, lineType=cv2.LINE_AA)
+        cv2.putText(img, label, (text_offset_x, text_offset_y), font, font_scale, (255, 255, 255), font_thickness, lineType=cv2.LINE_AA)
+        if label:
+            tf = max(tl - 1, 1)  # font thickness
+            t_size = cv2.getTextSize(label, 0, fontScale=tl / 3, thickness=tf)[0]
+            c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
 
 class SegmentationMetric(object):
     '''
@@ -597,14 +609,16 @@ def letterbox(img, new_shape=(640, 640), color=(114, 114, 114), auto=True, scale
 
 def driving_area_mask(seg = None):
     da_predict = seg[:, :, 12:372,:]
-    da_seg_mask = torch.nn.functional.interpolate(da_predict, scale_factor=2, mode='bilinear')
+    da_predict = da_predict.float()  # Convert the data type to float32
+    da_seg_mask = torch.nn.functional.interpolate(da_predict, scale_factor=2,mode='bilinear', align_corners=True)
     _, da_seg_mask = torch.max(da_seg_mask, 1)
     da_seg_mask = da_seg_mask.int().squeeze().cpu().numpy()
     return da_seg_mask
 
 def lane_line_mask(ll = None):
     ll_predict = ll[:, :, 12:372,:]
-    ll_seg_mask = torch.nn.functional.interpolate(ll_predict, scale_factor=2, mode='bilinear')
+    ll_predict = ll_predict.float()  # Convert the data type to float32
+    ll_seg_mask = torch.nn.functional.interpolate(ll_predict, scale_factor=2, mode='bilinear', align_corners=True)
     ll_seg_mask = torch.round(ll_seg_mask).squeeze(1)
     ll_seg_mask = ll_seg_mask.int().squeeze().cpu().numpy()
     return ll_seg_mask

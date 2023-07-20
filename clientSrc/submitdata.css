@@ -1,0 +1,45 @@
+.submitstrength {
+    position: absolute;
+    bottom: 30%;
+    left: 10%;
+}
+
+.my-form {
+    display: inline-block;
+    position: relative;
+    text-align: center;
+}
+
+.my-form input[type="text"] {
+    width: 95px;
+    height: 95px;
+    border: none;
+    /* 移除边框 */
+    outline: none;
+    /* 移除聚焦时的外边框 */
+    border-radius: 30%;
+    font-size: 30px;
+    text-align: center;
+    /* 将输入的文字居中 */
+}
+
+.my-form input[type="text"]::placeholder {
+    font-size: 13.5px;
+}
+
+.my-form input[type="submit"] {
+    width: 95px;
+    position: absolute;
+    top: 100%;
+    /* 将提交按钮定位到输入框的下方 */
+    margin-top: 5px;
+    /* 添加一定的间距 */
+    left: 50%;
+    /* 将按钮水平居中 */
+    transform: translateX(-50%);
+    /* 将按钮水平居中 */
+    border: none;
+    outline: none;
+    background-color: orange;
+    border-radius: 10%;
+}

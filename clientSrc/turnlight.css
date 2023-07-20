@@ -1,0 +1,49 @@
+.turnLight {
+    position: absolute;
+    top: 40%;
+    left: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #leftlight,
+  #rightlight {
+    background-color: yellow;
+    box-shadow: 0 0 10px 5px rgba(254,254,69,0.9);
+    width: 80px;
+    height: 50px;
+    background-repeat: no-repeat;
+    border-radius: 30%;
+    background-position: center;
+    background-size: cover;
+    visibility: hidden;
+  }
+
+  #leftlight {
+    background-image: url("leftright.png");
+    margin-right: 180px;
+    /* box-shadow: 0 0 10px 5px red; 添加红色发光效果 */
+   
+  }
+
+  #rightlight {
+    background-image: url("rightlight.png");
+    margin-left: 180px;
+    /* box-shadow: 0 0 10px 5px red; 添加红色发光效果 */
+  }
+
+  @keyframes blink-animation {
+    0%,100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    /* 100% {
+      opacity: 0;
+    } */
+  }
+  .blink-lights{
+    animation: blink-animation 1s infinite;
+  }

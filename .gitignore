@@ -8,3 +8,8 @@ runs/
 /Demo1-Server/.mvn/
 /Demo1-Server/src/test/
 well-matched.tar
+video/
+results/
+example_output/
+Server.jar
+ckpt/

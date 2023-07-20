@@ -1,0 +1,58 @@
+.light {
+    position: absolute;
+    left: 41%;
+    top: 18%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 320px;
+    height: 40px;
+}
+
+.lightSwitch {
+    position: relative;
+    flex-basis: 0px;
+    flex-grow: 1;
+    /* background-color: aqua; */
+    margin-right: 40px;
+    border-radius: 50%;
+}
+
+#fog {
+    background: url("fog.png") no-repeat center;
+    background-size: cover;
+    /* background-color: lightblue; */
+}
+
+#high {
+    background: url("high.png") no-repeat center;
+    border: 1px solid rgb(108, 108, 108);
+    background-size: cover;
+}
+
+#dipped {
+    background: url("dipped.png") no-repeat center;
+    border: 1px solid rgb(108, 108, 108);
+    background-size: cover;
+}
+
+#clearance {
+    background: url("clearance.png") no-repeat center;
+    border: 1px solid rgb(108, 108, 108);
+    /* background-color: li; */
+    background-size: cover;
+}
+ .lightSwitch::before{
+    position: absolute;
+    left: -1%;
+    top: -5%;
+    content: '';
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* border: 2px solid lightblue; */
+    /* z-index: 0; */
+}
+.active3::before{
+    background-color: rgba(2, 243, 243, 0.736);
+}

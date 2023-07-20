@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频上传</title>
+    <script src="jquery-3.7.0.js"></script>
+</head>
+
+
+<body>
+    <div class="submitvideo">
+        <form method="post" enctype="multipart/form-data" action="http://127.0.0.1:4567/uploadVideo/1" id="upload-form">
+            <input type="file" name="file" id="input-file" value="">
+            <label for="input-file" class="upbutton" id="filetext">视频选择</label>
+            <button type="submit" id="upload-button" class="upbutton">确认上传</button>
+        </form>
+    </div>
+</body>
+
+</html>

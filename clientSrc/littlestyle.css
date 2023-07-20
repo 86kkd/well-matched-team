@@ -1,0 +1,313 @@
+body {
+  overflow: scroll;
+  height: 100%;
+}
+
+canvas {
+  background-color: #000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+
+#upload-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  margin-top: 0px;
+  flex-grow: 1;
+  width: 100%;
+  height: 1%;
+}
+
+
+
+.container {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 7%;
+  margin: auto;
+  width: 100%;
+  height: 30%;
+}
+
+.sidebar-left {
+  position: absolute;
+  left: 15%;
+  right: 0%;
+  bottom: 0%;
+  top: -38%;
+}
+
+.sidebar-right {
+  position: absolute;
+  right: 15%;
+  top: -3%;
+}
+
+
+
+.show {
+  position: absolute;
+  left: 28%;
+  top: 35%;
+}
+
+#video {
+
+  width: 100%;
+  height: 100%;
+
+}
+
+
+
+.gears {
+  position: absolute;
+  left: 10%;
+  /* 调整左侧距离 */
+  top: 12%;
+
+}
+
+.gears p {
+
+  display: flex;
+  align-items: center;
+  color: #fff;
+  position: relative;
+  margin: 25px 0;
+}
+
+.gears p::before {
+  color: #fff;
+  content: '';
+  position: absolute;
+  left: -7px;
+  /* 调整圆圈的左侧距离 */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid yellow;
+  border-radius: 50%;
+
+}
+
+.gears p:first-child::before {
+  background-color: rgba(252, 251, 251, 0.736);
+}
+
+/* 设置较大的字体大小 */
+/* .large-text {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -140%);
+  font-size: 50px;
+
+  z-index: 1;
+  animation: textEffect 2s infinite;
+} */
+/* 设置较小的字体大小 */
+/* .small-text {
+  color: white;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+ 
+  z-index: 1;
+  animation: textEffect2 3s infinite;
+} */
+
+/* .loader::before {
+  content: "";
+  /* 圆锥渐变 */
+/* background: conic-gradient(from 25deg,
+      #70a1d7 25%,
+      #a1de93 0 50%,
+      #f7f48b 0 75%,
+      #f47c7c 0); */
+/* 渐变蒙版 */
+/* -webkit-mask: repeating-conic-gradient(#0000 0 25deg, #000 23% 25%),
+    radial-gradient(var(--s) at var(--s) 50%, #000 97%, #0000) left/calc(100% - 2 * var(--s)) 100% repeat-x,
+    radial-gradient(var(--s) at 50% var(--s), #000 97%, #0000) top/100% calc(100% - 2 * var(--s)) repeat-y; 
+} */
+/* 调整与 loader 的间距 */
+/* .info {
+  position: absolute;
+  right: 10%;
+  top: 12%;
+
+
+} */
+
+.info-item {
+  display: flex;
+  margin-bottom: 40px;
+  /* 调整每个信息项之间的间距 */
+}
+
+.info-label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #fff;
+  /* 调整标签与值之间的间距 */
+}
+
+.info-value {
+  font-style: italic;
+  color: #fff;
+}
+
+#status {
+  color: #000;
+}
+
+#status1 {
+  color: #000;
+}
+
+
+
+#upload-button {
+  position: absolute;
+  width: 10%;
+  right: 23%;
+  top: 30%;
+  height: 5%;
+}
+
+.upbutton {
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 8px;
+  margin: 0% 5%;
+  background-color: rgba(87, 186, 186, 0.35);
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+  /* 加个溢出隐藏 */
+  overflow: hidden;
+}
+
+.upbutton::after {
+  content: "";
+  width: 200px;
+  height: 200px;
+  /* 绝对定位 */
+  position: absolute;
+  /* --x、--y为CSS的自定义变量，通过var函数可对其调用 */
+  /* 这里可以通过js获取鼠标的坐标并赋值给自定义变量，实现跟随鼠标移动 */
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  /* 圆锥渐变 */
+  background-image: conic-gradient(#00f, #0ff, #0f0, #ff0, #f00, #f0f, #00f);
+  border-radius: 50%;
+  /* 模糊滤镜 */
+  filter: blur(15px);
+  /* 混合模式：叠加 */
+  mix-blend-mode: overlay;
+  /* 默认隐藏 */
+  opacity: 0;
+  /* 不透明度变化时的过渡效果 */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.upbutton:hover::after {
+  opacity: 1;
+}
+
+#input-file {
+  display: none;
+}
+
+#filetext {
+  position: absolute;
+  width: 10%;
+  height: 5%;
+  left: 23%;
+  top: 30%;
+  text-align: center;
+}
+
+
+/* .upload,
+.mybutton {
+  display: none;
+}
+
+.button-label {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+}
+
+
+.button-label:hover {
+  background-color: #2980b9;
+} */
+
+
+/* 定义动画 */
+/* @keyframes spin {
+  to {
+    /* 旋转一周 */
+/* transform: rotate(1turn);
+  }
+}
+
+@keyframes textEffect {
+  0% {
+    letter-spacing: 0;
+  }
+
+  25% {
+    letter-spacing: 8px;
+  }
+
+  50% {
+    letter-spacing: 0;
+  }
+
+  75% {
+    letter-spacing: -8px;
+  }
+
+  100% {
+    letter-spacing: 0;
+  }
+}
+
+@keyframes textEffect2 {
+  0% {
+    color: red;
+  }
+
+  25% {
+    color: blue;
+  }
+
+  50% {
+    color: green;
+  }
+
+  75% {
+    color: yellow;
+  }
+
+  100% {
+    color: red;
+  }
+} */

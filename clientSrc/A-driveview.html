@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.55">
+    <title>背景</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            /* margin: 0; */
+            /* width: 100%; */
+        }
+
+        .background {
+            width: 100%;
+            height: 100%;
+            background: url("bg.jpg") no-repeat center center fixed;
+            background-size: cover;
+            /* z-index: 0; */
+        }
+    </style>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="battery.css">
+    <link rel="stylesheet" href="gear.css">
+    <link rel="stylesheet" href="brake.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="cardoors.css">
+    <!-- <link rel="stylesheet" href="cardoors.css"> -->
+    <link rel="stylesheet" href="turnlight.css">
+    <link rel="stylesheet" href="submitdata.css">
+    <link rel="stylesheet" href="buttonreturn.css">
+    <link rel="stylesheet" href="B-prompts.css">
+    <link rel="stylesheet" href="people.css">
+    <link rel="stylesheet" href="traffic-light.css">
+    <script src="jquery-3.7.0.js"></script>
+</head>
+
+<body>
+    <div class="background">
+        <!-- 仪表盘 -->
+        <div class="panel-wrap">
+            <div class="panel">
+                <ul class="panel-mark">
+                    <li class="panel-item">
+                    </li>
+                </ul>
+                <div class="panel-hand"></div>
+                <div class="panel-speed">0 km/h</div>
+            </div>
+            <div class="panel-mask"></div>
+        </div>
+        <!-- 电池 -->
+        <div class="skin">
+            <div class="battery">
+                <div class="capacity"></div>
+                <div class="batterylevel">50%</div>
+            </div>
+        </div>
+        <!-- 挡位信息 -->
+        <div class="gears">
+            <div class="exect" id="p">p</div>
+            <div class="exect" id="R">R</div>
+            <div class="exect" id="N">N</div>
+            <div class="exect" id="D">D</div>
+            <div class="exect" id="S">S</div>
+            <div class="exect" id="L">L</div>
+        </div>
+        <!-- 刹车 -->
+        <div class="brake"></div>
+        <!-- 灯 -->
+        <div class="light">
+            <div class="lightSwitch" id="fog"></div>
+            <div class="lightSwitch" id="high"></div>
+            <div class="lightSwitch" id="dipped"></div>
+            <div class="lightSwitch" id="clearance"></div>
+        </div>
+        <!-- 指定车辆 -->
+        <!-- <form id="myForm">
+            <input type="text" name="carid" id="caridInput" value="" placeholder="请输入车辆id">
+            <input type="submit" value="提交">
+        </form> -->
+        <!-- 输入刹车力度 -->
+        <div class="submitstrength">
+            <form id="myForm2" class="my-form">
+                <input type="text" name="carbrake" id="carbrakeInput" value="" placeholder="请输入刹车力度">
+                <input type="submit" value="提交">
+            </form>
+            <!-- 输入加速力度 -->
+            <form id="myForm3" class="my-form">
+                <input type="text" name="caraccelerate" id="caraccelerateInput" value="" placeholder="请输入加速力度">
+                <input type="submit" value="提交">
+            </form>
+        </div>
+
+
+
+        <!--车门  -->
+        <div class="cardoorsState">
+            <div class="carphoto">
+                <img src="cardoors.png" alt="carphotooftop" id="carofphoto">
+                <div class="cardoors" id="ltop" class="leftdoor"></div>
+                <div class="cardoors" id="rtop" class="rightdoor"></div>
+                <div class="cardoors" id="lbot" class="leftdoor"></div>
+                <div class="cardoors" id="rbot" class="rightdoor"></div>
+            </div>
+            <form class="stateoffour">
+                <label for="doorState">车门状态：</label>
+                <div class="radio-containter"> <input type="radio" id="ltOpen" name="doorState1" value="0"> <label
+                        for="ltOpen">开</label></div>
+                <div class="radio-containter"> <input type="radio" id="ltClose" name="doorState1" value="0"> <label
+                        for="ltClose">关</label></div>
+                <div class="radio-containter"> <input type="radio" id="lbOpen" name="doorState2" value="0"> <label
+                        for="lbOpen">开</label></div>
+                <div class="radio-containter"> <input type="radio" id="lbClose" name="doorState2" value="0"> <label
+                        for="lbClose">关</label></div>
+                <div class="radio-containter"> <input type="radio" id="rtOpen" name="doorState3" value="0"> <label
+                        for="rtOpen">开</label></div>
+                <div class="radio-containter"> <input type="radio" id="rtClose" name="doorState3" value="0"> <label
+                        for="rtClose">关</label></div>
+                <div class="radio-containter"> <input type="radio" id="rbOpen" name="doorState4" value="0"> <label
+                        for="rbOpen">开</label></div>
+                <div class="radio-containter"> <input type="radio" id="rbClose" name="doorState4" value="0"> <label
+                        for="rbClose">关</label></div>
+            </form>
+        </div>
+        <!-- 转向灯 -->
+        <div class="turnLight">
+            <div id="leftlight"></div>
+            <div id="rightlight"></div>
+        </div>
+        <button onclick="navigateTopage0()">返回</button>
+        <div id="prompts">
+            <p>提示信息！！！</p>
+        </div>
+
+        <div id="overlay" class="warning-img">
+            <img src="people.png" alt="行人警告" />
+            <img src="attendtion.png" alt="行人警告" />
+        </div>
+
+        <div class="traffic-light">
+            <div id="redLight" class="circle"></div>
+            <div id="greenLight" class="circle"></div>
+        </div>
+    </div>
+
+    <!-- <div class="littlescreen">
+        <div class="panel-speed2"></div>
+    </div> -->
+    <!-- <div id="resultContainer"></div> -->
+    <script src="getSpcificiedCar.js"></script>
+</body>
+
+</html>

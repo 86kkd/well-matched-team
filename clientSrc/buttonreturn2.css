@@ -1,0 +1,18 @@
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: #333333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    position: absolute;
+    /* 添加相对定位 */
+    bottom: 0;
+    right: 0;
+}
+
+button:hover {
+    background-color: #dddddd;
+}

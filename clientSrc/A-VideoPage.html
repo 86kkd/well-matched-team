@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="buttonreturn2.css">
+    <script src="jquery-3.7.0.js"></script>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #prodict {
+            /* display: block; */
+            /* margin: 30px; */
+            margin-top: 20px;
+            margin-left: 10px;
+            width: 900px;
+            height: 830px;
+            object-fit: fill;
+        }
+
+        #bird-view {
+            /* display: block; */
+            position: absolute;
+            top: 20px;
+            /* right: 130px; */
+            right: 10px;
+            /* margin: 30px; */
+            width: 600px;
+            height: 500px;
+            object-fit: fill;
+        }
+
+        #depth {
+            /* display: block; */
+            position: absolute;
+            /* margin: 30px; */
+            right: 10px;
+            bottom: 20px;
+            width: 600px;
+            height: 300px;
+            object-fit: fill;
+        }
+
+
+        .video1-text {
+            border: 1px solid orange;
+            width: 90px;
+            height: 40px;
+            border-radius: 15px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            /* align-items: center; */
+            text-align: center;
+            font-size: 17px;
+            background-color: aliceblue;
+        }
+
+        .video2-text {
+            border: 1px solid orange;
+            width: 90px;
+            height: 40px;
+            border-radius: 15px;
+            position: absolute;
+            top: 20px;
+            left: 930px;
+            text-align: center;
+            font-size: 17px;
+            background-color: aliceblue;
+        }
+
+        .video3-text {
+            border: 1px solid orange;
+            width: 90px;
+            height: 40px;
+            border-radius: 15px;
+            position: absolute;
+            top: 550px;
+            left: 930px;
+            text-align: center;
+            font-size: 17px;
+            background-color: aliceblue;
+        }
+
+        /* .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0px;
+        } */
+
+        /* .video {
+            width: 100%;
+            height: 100%;
+           
+        } */
+    </style>
+    <title>Document</title>
+</head>
+
+
+
+<body>
+
+    <div class="video1-container">
+        <img src="" alt="预测图" id="prodict">
+        <div class="video1-text">目标检测分割图</div>
+    </div>
+    <div class="video2-container">
+        <img src="" alt="鸟瞰图" id="bird-view">
+        <div class="video2-text">鸟瞰图</div>
+    </div>
+    <div class="video3-container">
+        <img src="" alt="深度图" id="depth">
+        <div class="video3-text">深度图</div>
+    </div>
+
+
+    <button onclick="navigateToPage0()">返回</button>
+    <script>
+        const ss = "data:image/png;base64,"
+        function fetchImages() {
+            $.ajax({
+                type: "get",
+                url: "http://127.0.0.1:4567/newImg",
+                success: function (response) {
+
+                    console.log(response)
+
+                    let str = response
+                    let s = str.split('#')
+                    console.log(s[0])
+
+                    $("#prodict").attr("src", ss + s[0]);
+                    $("#depth").attr("src", ss + s[1]);
+                    $("#bird-view").attr("src", ss + s[2]);
+                    // console.log(s[4])
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+
+            })
+        }
+        setInterval(fetchImages, 100)
+        function navigateToPage0() {
+            window.location.href = "A-headpage.html";
+        }
+    </script>
+</body>
+
+</html>

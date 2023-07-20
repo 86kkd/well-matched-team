@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汽车中控首页</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            /* 设置一个较高的 z-index 值，确保文字显示在动画之上 */
+        }
+
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            /* 设置较低的 z-index 值，将动画放在背景之后 */
+        }
+
+        .shape:nth-child(1) {
+            background-color: rgba(0, 48, 96, 0.8);
+        }
+
+        .shape:nth-child(2) {
+            background-color: rgba(60, 64, 67, 0.8);
+        }
+
+        .shape:nth-child(3) {
+            background-color: rgba(192, 192, 192, 0.8);
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: move 10s infinite linear;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(50);
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            position: relative;
+            /* 添加相对定位 */
+            z-index: 1;
+            /* 提高文字的层级 */
+        }
+
+        p {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            position: relative;
+            /* 添加相对定位 */
+            z-index: 1;
+            /* 提高文字的层级 */
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffffff;
+            color: #333333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            position: relative;
+            /* 添加相对定位 */
+            z-index: 1;
+            /* 提高文字的层级 */
+        }
+
+        button:hover {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="background-shapes">
+            <div class="shape" style="top: 20%; left: 30%; width: 100px; height: 100px;"></div>
+            <div class="shape" style="top: 50%; left: 70%; width: 80px; height: 80px;"></div>
+            <div class="shape" style="top: 80%; left: 40%; width: 120px; height: 120px;"></div>
+        </div>
+        <h1>汽车中控界面</h1>
+        <p>欢迎使用汽车中控系统</p>
+        <button onclick="navigateToPage1()">进入中控界面</button>
+        <button onclick="navigateToPage2()">查看行车记录</button>
+    </div>
+    <script>
+        // 在这里定义脚本
+        function navigateToPage1() {
+            window.location.href = "A-driveview.html";
+        }
+
+        function navigateToPage2() {
+            window.location.href = "A-VideoPage.html";
+        }
+    </script>
+</body>
+
+</html>

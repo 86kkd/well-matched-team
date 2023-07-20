@@ -1,0 +1,27 @@
+.traffic-light {
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    /* background-color: brown; */
+}
+
+.circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+#redLight {
+    background-color: red;
+    box-shadow: 0 0 20px 10px red;
+}
+
+#greenLight {
+    background-color: green;
+    box-shadow: 0 0 20px 10px green;
+}
